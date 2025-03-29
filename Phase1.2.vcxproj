@@ -142,8 +142,12 @@
     <ClInclude Include="UltrasoundDevice.h" />
   </ItemGroup>
   <ItemGroup>
+Mego
     <ClCompile Include="ElectrotherapyDevice.cpp" />
     <ClCompile Include="GymRoom.cpp" />
+=======
+    <ClCompile Include="main.cpp" />
+master
     <ClCompile Include="priQueue.h" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Treatment.cpp" />

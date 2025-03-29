@@ -3,56 +3,51 @@
 
 
 template <class T>
-class SortedQueue : public LinkedQueue
+class SortedQueue : public LinkedQueue<T>
 {
 public:
+	SortedQueue() : LinkedQueue()
+	{
+	}
 	bool InsertSorted(T data) {
-		if (Head) {
-			if (data < Head->getItem()) {
-				Node<T>* newnode = new Node<T>;
-				newnode->setItem(data);
-				newnode->setNext(Head);
-				Head = newnode;
+		this->count++;
+		if (this->frontPtr) {
+			if (data <= this->frontPtr->getItem()) {
+				Node<T>* newNode = new Node<T>(data);
+				newNode->setNext(this->frontPtr);
+				this->frontPtr = newNode;
 				return true;
-			}
-			Node<T>* ptr = Head;
+			}	
 			bool inserted = true;
-			while (ptr) {
-				if (ptr->getItem() == data) {
-					return false;
-				}
-				ptr = ptr->getNext();
-			}
-			ptr = Head->getNext();
-			Node<T>* prev = Head;
+			Node<T>* ptr = this->frontPtr->getNext();
+			Node<T>* prev = this->frontPtr;
 			while (ptr) {
 				if (prev->getItem() < data && ptr->getItem() > data) {
-					Node<T>* newnode = new Node<T>;
-					newnode->setItem(data);
-					newnode->setNext(ptr);
-					prev->setNext(newnode);
+					Node<T>* newNode = new Node<T>(data);
+					newNode->setNext(ptr);
+					prev->setNext(newNode);
 					return true;
 				}
 				prev = ptr;
 				ptr = ptr->getNext();
 			}
 			if (data > prev->getItem()) {
-				Node<T>* newnode = new Node<T>;
-				newnode->setItem(data);
-				newnode->setNext(NULL);
-				prev->setNext(newnode);
+				Node<T>* newNode = new Node<T>(data);
+				newNode->setNext(NULL);
+				prev->setNext(newNode);
 				return true;
 			}
 		}
 		else
 		{
-			Node<T>* newnode = new Node<T>;
-			newnode->setItem(data);
-			newnode->setNext(NULL);
-			Head = newnode;
+			Node<T>* newNode = new Node<T>(data);
+			newNode->setNext(NULL);
+			this->frontPtr = newNode;
 			return true;
 		}
 		return false;
 	}
 };
+
+
 
