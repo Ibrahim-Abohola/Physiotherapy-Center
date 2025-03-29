@@ -16,6 +16,9 @@
     <Filter Include="DataStructures">
       <UniqueIdentifier>{e279f4f1-e0c8-476a-9786-1b31cc15f659}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project_Classes">
+      <UniqueIdentifier>{120b3bba-ef27-4785-aed9-c96a5578e175}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -42,6 +45,12 @@
     <ClInclude Include="Early_PriQueue.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
+
+    <ClInclude Include="Patient.cpp">
+      <Filter>Project_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient.h">
+      <Filter>Project_Classes</Filter>
     <ClInclude Include="Treatment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -65,7 +74,6 @@
     <ClCompile Include="X_Queue.h">
       <Filter>DataStructures</Filter>
     </ClCompile>
- Mego
     <ClCompile Include="Treatment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -79,9 +87,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GymRoom.cpp">
-=======
     <ClCompile Include="main.cpp">
-master
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
