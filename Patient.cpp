@@ -77,6 +77,7 @@ string Patient::GetStatus() const {
 bool Patient::operator<=(Patient*& p) {
 	return (this->PT <= p->PT);
 }
+
 bool Patient::operator>=(Patient*& p) {
 	return (this->PT >= p->PT);
 }

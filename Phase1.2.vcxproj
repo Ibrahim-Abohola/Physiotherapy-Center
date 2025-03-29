@@ -135,12 +135,14 @@
     <ClInclude Include="Patient.h" />
     <ClInclude Include="priNode.h" />
     <ClInclude Include="QueueADT.h" />
+    <ClInclude Include="Scheduler.h" />
     <ClInclude Include="SortedQueue.h" />
     <ClInclude Include="StackADT.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="priQueue.h" />
+    <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="X_Queue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
