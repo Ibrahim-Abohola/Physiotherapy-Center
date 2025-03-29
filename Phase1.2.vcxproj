@@ -137,6 +137,7 @@
     <ClInclude Include="StackADT.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="priQueue.h" />
     <ClCompile Include="X_Queue.h" />
   </ItemGroup>

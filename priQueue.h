@@ -64,6 +64,6 @@ public:
     }
 
     int GetCount() const {
-        return count
+        return count;
     }
 };
