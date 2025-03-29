@@ -22,7 +22,7 @@ public:
 			Node<T>* ptr = this->frontPtr->getNext();
 			Node<T>* prev = this->frontPtr;
 			while (ptr) {
-				if (prev->getItem() <= data && ptr->getItem() => data) {
+				if (prev->getItem() <= data && ptr->getItem() >= data) {
 					Node<T>* newNode = new Node<T>(data);
 					newNode->setNext(ptr);
 					prev->setNext(newNode);
@@ -31,7 +31,7 @@ public:
 				prev = ptr;
 				ptr = ptr->getNext();
 			}
-			if (data => prev->getItem()) {
+			if (data >= prev->getItem()) {
 				Node<T>* newNode = new Node<T>(data);
 				newNode->setNext(NULL);
 				prev->setNext(newNode);
