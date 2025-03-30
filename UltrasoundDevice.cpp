@@ -1,14 +1,23 @@
 #include "UltrasoundDevice.h"
 
-UltrasoundDevice::UltrasoundDevice(int id): Resource("Ultrasound", id) {}
+int UltrasoundDevice::UID = 0;
 
-bool UltrasoundDevice::allocate()
+UltrasoundDevice::UltrasoundDevice() : Resource("Ultrasound", UID++) {}
+
+int UltrasoundDevice::getUID() const
+{
+    return UID;
+}
+
+bool UltrasoundDevice::allocate(int& deviceID)
 {
     if (checkAvailability())
     {
         setAvailability(false);
+        deviceID = getUID();
         return true;
     }
+    deviceID = -1;
     return false;
 }
 
