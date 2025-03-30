@@ -74,6 +74,7 @@
     <ClCompile Include="X_Queue.h">
       <Filter>DataStructures</Filter>
     </ClCompile>
+ Mego
     <ClCompile Include="Treatment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,6 +88,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GymRoom.cpp">
+=======
+    <ClCompile Include="main.cpp">
+master
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ETherapy.cpp">

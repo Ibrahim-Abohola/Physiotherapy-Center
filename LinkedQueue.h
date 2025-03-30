@@ -12,8 +12,8 @@ using namespace std;
 template <typename T>
 class LinkedQueue :public QueueADT<T>
 {
-private:
 
+protected:
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 	int count;
@@ -38,6 +38,7 @@ LinkedQueue<T>::LinkedQueue()
 {
 	backPtr = nullptr;
 	frontPtr = nullptr;
+	count = 0;
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
