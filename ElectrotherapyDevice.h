@@ -3,9 +3,10 @@
 class ElectrotherapyDevice : public Resource 
 {
 public:
+    ElectrotherapyDevice();
     ElectrotherapyDevice(int id);
 
-    bool allocate();
+    bool allocate(int& deviceID);
 
     void release();
 };

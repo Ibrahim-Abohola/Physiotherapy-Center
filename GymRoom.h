@@ -1,20 +1,33 @@
 #pragma once
 #include "Resource.h"
 #include "LinkedQueue.h"
+using namespace std;
+
+struct GymDevice 
+{
+    int id;
+    bool isFree;
+};
 
 class GymRoom : public Resource 
 {
     int capacity;
-    LinkedQueue<string> devices;
+    LinkedQueue<GymDevice> devices;
 
 public:
-    GymRoom(int id, int cap, LinkedQueue<string> devs = {});
+    GymRoom();
+    GymRoom(int id, int cap, LinkedQueue<GymDevice> devs = {});
 
-    bool allocate();
+    bool allocate(int& room, int& device);
 
-    void release();
+    void release(int deviceID);
 
-    bool checkDeviceAvailability(const string& device);
-    bool checkAvailability() const;
+    bool checkDeviceAvailability(int device);
+
+    bool checkAvailability();
+
+    bool isRoomFree();
+
+    void setDeviceAvailability(int device, bool isFree);
+
 };
-

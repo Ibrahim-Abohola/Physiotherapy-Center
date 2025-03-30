@@ -11,10 +11,13 @@ class Resource
 public:
     Resource(string type, int id);
 
-    virtual bool allocate() = 0;
-    virtual void release() = 0;
+    virtual bool allocate(int &deviceID);
+    virtual bool allocate(int& room, int& device);
 
-    virtual bool checkAvailability() const;
+    virtual void release();
+    virtual void release(int deviceID);
+
+    virtual bool checkAvailability();
     void setAvailability(bool av);
 
     string getResourceType() const;

@@ -4,9 +4,10 @@
 class UltrasoundDevice : public Resource 
 {
 public:
+    UltrasoundDevice();
     UltrasoundDevice(int id);
 
-    bool allocate();
+    bool allocate(int& deviceID);
 
     void release();
 };

@@ -57,6 +57,15 @@
     <ClInclude Include="GymRoom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ETherapy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utherapy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Xtherapy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="priQueue.h">
@@ -78,6 +87,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GymRoom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ETherapy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utherapy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Xtherapy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
