@@ -9,22 +9,30 @@ Patient::Patient(char type, int pt, int vt) :
 	WT = 0;
 	FT = 0;
 	TT = 0;
-	if (PT < VT)
+	if (PT < VT) {
 		UpdateStatus("Late");
-	else
+		Penality = (VT - PT) / 2;
+	}
+	else {
 		UpdateStatus("Early");
+		Penality = 0;
+	}
 }
 
 void Patient::UpdateStatus(string s) {
 	Status = s;
 }
 
-void Patient::AddTreatment() {
-
+void Patient::AddTreatment(Treatment * treatment) 
+{
+	TreatmentList.enqueue(treatment);
 }
 
-void Patient::RemoveTreatment() {
-
+Treatment * Patient::RemoveTreatment()
+{
+	Treatment* treatment;
+	TreatmentList.dequeue(treatment);
+	return treatment;
 }
 
 void Patient::UpdateWT(int t) {

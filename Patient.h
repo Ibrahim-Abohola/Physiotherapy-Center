@@ -1,6 +1,7 @@
 #pragma once
 #pragma once
 #include "LinkedQueue.h"
+#include "Treatment.h"
 
 class Patient {
 	char Type; // type of the patient N or R 
@@ -10,11 +11,14 @@ class Patient {
 	int WT; // total waiting time of the patient
 	int FT;  // finish time of the patient
 	int TT; // total treatment time of the patient
+	int Penality; // applied penality in case of late patient
 	string Status; //status of the patient 
+	LinkedQueue<Treatment*> TreatmentList;
+
 public:
 	Patient(char type, int pt, int vt);
-	void AddTreatment();
-	void RemoveTreatment();
+	void AddTreatment(Treatment * treatment);
+	Treatment* RemoveTreatment();
 	void UpdateStatus(string s);
 	void SetFT(int t);
 	void UpdateWT(int t);
