@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ElectrotherapyDevice.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+     <ClCompile Include="ElectrotherapyDevice.cpp" />
     <ClCompile Include="GymRoom.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="priQueue.h" />
@@ -13,26 +15,97 @@
     <ClCompile Include="ETheraby.cpp" />
     <ClCompile Include="Utherapy.cpp" />
     <ClCompile Include="Xtherapy.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="ArrayStack.h" />
     <ClInclude Include="Early_PriQueue.h" />
     <ClInclude Include="ElectrotherapyDevice.h" />
     <ClInclude Include="GymRoom.h" />
-    <ClInclude Include="LinkedQueue.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Patient.cpp" />
-    <ClInclude Include="Patient.h" />
-    <ClInclude Include="priNode.h" />
-    <ClInclude Include="QueueADT.h" />
-    <ClInclude Include="Scheduler.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="SortedQueue.h" />
-    <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
     <ClInclude Include="UltrasoundDevice.h" />
     <ClInclude Include="ETheraby.h" />
     <ClInclude Include="Utherapy.h" />
     <ClInclude Include="Xtherapy.h" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="priQueue.h">
+      <Filter>DS</Filter>
+    </ClCompile>
+    <ClCompile Include="X_Queue.h">
+      <Filter>DS</Filter>
+    </ClCompile>
+    <ClCompile Include="UltrasoundDevice.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Treatment.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ElectrotherapyDevice.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="GymRoom.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scheduler.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ArrayStack.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="Early_PriQueue.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="priNode.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueADT.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="StackADT.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="SortedQueue.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="UltrasoundDevice.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Treatment.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectrotherapyDevice.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="GymRoom.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient.cpp">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scheduler.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedQueue.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="DS">
+      <UniqueIdentifier>{180b655a-6985-47c2-9315-6634d558e304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{1e2e52b4-4be0-485e-9ff2-316fe1b44472}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

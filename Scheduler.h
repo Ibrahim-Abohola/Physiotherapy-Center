@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 #include "LinkedQueue.h"
 #include "ArrayStack.h"
 #include "SortedQueue.h"
@@ -7,6 +8,7 @@
 #include "X_Queue.h"
 #include "Early_PriQueue.h"
 #include "Patient.h"
+#include "Resource.h"
 
 
 class Scheduler {
@@ -16,11 +18,57 @@ class Scheduler {
 	X_Queue<Patient*> X_Waiting;
 	SortedQueue<Patient*> U_Waiting;
 	SortedQueue<Patient*> E_Waiting;
-	LinkedQueue<Resource*> E_devices;
-	LinkedQueue<Resource*> U_devices;
+	LinkedQueue<Resource*> E_Devices;
+	LinkedQueue<Resource*> U_Devices;
 	LinkedQueue<Resource*> X_Rooms;
 	priQueue<Patient*> In_Treatment;
 	ArrayStack<Patient*> FinishList;
+	int TWT;  //total waiting time of all patients 
+	int Timestep; // the current time step &&  total timesteps at the end
+	int Total_RPatients;  // total number of r patients
+	int Total_NPatients;   // total number of n patients
+	double AvgWT_R;  // average total waiting time for R  patients
+	double AvgWT_N;  //average total waiting time for N patients
+	double AvgTT_R; // average total treatment time for R patients
+	double AvgTT_N; // average total treatment time for N patients
+	int AC_Cancellations; // number of accepted cancellations
+	int AC_Rescheduling; // number of accepted rescheduling
+	double Per_cancellation; // percentage of accepted cancellations
+	double Per_cancellation; // percentage of accepted rescheduling
+	double Per_Early; // percentage of early patients
+	double Per_Late; // percentage of late patients
+	double AvgPenality; // average number of timesteps of the late penality applied for the late patient
 public:
+	Scheduler();
+	void AddPatient(Patient* p);
+	void AddToEarly(Patient* p);
+	void AddToLate(Patient* p);
+	void AddToU_Waiting(Patient* p);
+	void AddToX_Waiting(Patient* p);
+	void AddToE_Waiting(Patient* p);
+	void AddToU_Device(Resource* resource);
+	void AddToE_Device(Resource* resource);
+	void AddToX_Room(Resource* resource);
+	void AddToIn_Treatment(Patient* p);
+	void AddToFinishLIst(Patient* p);
+	void LoadData(ifstream& Input); // to read the input file and initialize lists
+	bool Cancellation(); // to handle cancellations
+	bool reschedule();  // to handle rescheduling
+	void ProcessTimestep(); // to process each time step and make the needed transitions
+	void collectStatistics(); // collect statistics when all patients finish
+	void SetTimestep(int t); 
+	int GetTWT() const;
+	int GetTotal_NPatients() const;
+	int GetTotal_RPatients() const;
+	double GetAvgWT_R() const;
+	double GetAvgWT_N() const;
+	double GetAvgTT_R() const;
+	double GetAvgTT_N() const;
+	double GetPer_cancellation() const;
+	double GetPer_rescheduling() const;
+	double GetPer_Early() const;
+	double GetPer_Late() const;
+	double GetAvgPenality() const;
+
 
 };
