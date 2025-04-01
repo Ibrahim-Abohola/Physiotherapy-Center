@@ -1,6 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+     <ClCompile Include="ElectrotherapyDevice.cpp" />
+    <ClCompile Include="GymRoom.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="priQueue.h" />
+    <ClCompile Include="Scheduler.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Treatment.cpp" />
+    <ClCompile Include="UltrasoundDevice.cpp" />
+    <ClCompile Include="X_Queue.h" />
+    <ClCompile Include="ETheraby.cpp" />
+    <ClCompile Include="Utherapy.cpp" />
+    <ClCompile Include="Xtherapy.cpp" />
+    <ClInclude Include="ArrayStack.h" />
+    <ClInclude Include="Early_PriQueue.h" />
+    <ClInclude Include="ElectrotherapyDevice.h" />
+    <ClInclude Include="GymRoom.h" />
+    <ClInclude Include="Treatment.h" />
+    <ClInclude Include="UltrasoundDevice.h" />
+    <ClInclude Include="ETheraby.h" />
+    <ClInclude Include="Utherapy.h" />
+    <ClInclude Include="Xtherapy.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="priQueue.h">
       <Filter>DS</Filter>

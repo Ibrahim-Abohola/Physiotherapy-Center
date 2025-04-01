@@ -2,24 +2,22 @@
 using namespace std;
 #include <string>
 
-class Resource 
+class Resource
 {
     string resourceType;
-    int resourceID;
     bool isAvailable;
 
 public:
-    Resource(string type, int id);
+    Resource(string type, bool isAvailable);
 
-    virtual bool allocate() = 0;
-    virtual void release() = 0;
+    virtual bool allocate(int& deviceID);
 
-    virtual bool checkAvailability() const;
+    virtual void release();
+
+    virtual bool checkAvailability();
     void setAvailability(bool av);
 
     string getResourceType() const;
-
-    int getResourceID() const;
 
     virtual ~Resource() {}
 };

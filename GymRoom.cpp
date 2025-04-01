@@ -1,57 +1,45 @@
 #include "GymRoom.h"
 
-GymRoom::GymRoom(int id, int cap, LinkedQueue<string> devs)
-    : Resource("Gym", id), capacity(cap), devices(devs) {}
+int GymRoom::RID = 0;
 
-bool GymRoom::allocate()
+GymRoom::GymRoom() : Resource("Gym", ++RID), maxRoomSize(0), capacity(0) {}
+
+GymRoom::GymRoom(int roomSize) : Resource("Gym", RID++), maxRoomSize(roomSize), capacity(roomSize) {}
+
+int GymRoom::getRID() const
 {
-    if (checkAvailability() && capacity > 0)
+    return RID;
+}
+
+bool GymRoom::allocate(int& RoomID)
+{
+    if (!checkAvailability())
     {
-        capacity--;
-        if (capacity == 0) {
-            setAvailability(false);
-        }
-        return true;
+        return false;
     }
-    return false;
+
+    RoomID = getRID();
+    capacity--;
+
+    return true;
 }
 
 void GymRoom::release()
 {
     capacity++;
-    setAvailability(true);
-}
-
-bool GymRoom::checkDeviceAvailability(const string& device) 
-{
-    if (capacity == 0)
-    {
-        return false;
-    }
-
-    string currentDevice;
-    LinkedQueue<string> tempQueue;
-    bool found = false;
-
-    while (!devices.isEmpty()) 
-    {
-        devices.dequeue(currentDevice);
-        if (currentDevice == device) {
-            found = true;
-        }
-        tempQueue.enqueue(currentDevice);
-    }
-    while (!tempQueue.isEmpty()) 
-    {
-        string tempDevice;
-        tempQueue.dequeue(tempDevice);
-        devices.enqueue(tempDevice);
-    }
-
-    return found;
 }
 
 bool GymRoom::checkAvailability() const
 {
-    return (checkAvailability() && capacity > 0);
+    return capacity > 0;
+}
+
+int GymRoom::getMaxRoomSize() const
+{
+    return maxRoomSize;
+}
+
+int GymRoom::getCurrentCapacity() const
+{
+    return capacity;
 }

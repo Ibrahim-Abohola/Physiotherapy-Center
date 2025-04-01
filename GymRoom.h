@@ -2,19 +2,25 @@
 #include "Resource.h"
 #include "LinkedQueue.h"
 
-class GymRoom : public Resource 
-{
+class GymRoom : public Resource {
+private:
+    static int RID;
+    int maxRoomSize;
     int capacity;
-    LinkedQueue<string> devices;
 
 public:
-    GymRoom(int id, int cap, LinkedQueue<string> devs = {});
+    GymRoom();
+    GymRoom(int roomSize);
 
-    bool allocate();
+    int getRID() const;
+
+    bool allocate(int& RoomID);
 
     void release();
 
-    bool checkDeviceAvailability(const string& device);
     bool checkAvailability() const;
-};
 
+    int getMaxRoomSize() const;
+
+    int getCurrentCapacity() const;
+};

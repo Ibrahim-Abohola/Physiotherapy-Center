@@ -130,6 +130,7 @@
     <ClInclude Include="ArrayStack.h" />
     <ClInclude Include="Early_PriQueue.h" />
     <ClInclude Include="ElectrotherapyDevice.h" />
+    <ClInclude Include="ETheraby.h" />
     <ClInclude Include="GymRoom.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Node.h" />
@@ -143,9 +144,12 @@
     <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
     <ClInclude Include="UltrasoundDevice.h" />
+    <ClInclude Include="Utherapy.h" />
+    <ClInclude Include="Xtherapy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ElectrotherapyDevice.cpp" />
+    <ClCompile Include="ETheraby.cpp" />
     <ClCompile Include="GymRoom.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="priQueue.h" />
@@ -153,6 +157,8 @@
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Treatment.cpp" />
     <ClCompile Include="UltrasoundDevice.cpp" />
+    <ClCompile Include="Utherapy.cpp" />
+    <ClCompile Include="Xtherapy.cpp" />
     <ClCompile Include="X_Queue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
