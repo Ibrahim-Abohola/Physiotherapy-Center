@@ -23,12 +23,12 @@ void Patient::UpdateStatus(string s) {
 	Status = s;
 }
 
-void Patient::AddTreatment(Treatment * treatment) 
+void Patient::AddTreatment(Treatment* treatment)
 {
 	TreatmentList.enqueue(treatment);
 }
 
-Treatment * Patient::RemoveTreatment()
+Treatment* Patient::RemoveTreatment()
 {
 	Treatment* treatment;
 	TreatmentList.dequeue(treatment);
@@ -86,17 +86,17 @@ string Patient::GetStatus() const {
 }
 
 Treatment* Patient::GetCurrentTreatment() {
-	Treatment * curr;
+	Treatment* curr;
 	TreatmentList.peek(curr);
-	if(curr)
+	if (curr)
 		return curr;
 	return NULL;
 }
 
 bool Patient::operator<=(Patient*& p) {
-	return (PT + Penality  <= p->PT + p->Penality);
+	return (PT + Penality <= p->PT + p->Penality);
 }
 
 bool Patient::operator>=(Patient*& p) {
-	return (PT  + Penality >= p->PT + p->Penality);
+	return (PT + Penality >= p->PT + p->Penality);
 }

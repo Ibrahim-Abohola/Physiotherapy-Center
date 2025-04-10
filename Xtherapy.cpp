@@ -2,29 +2,31 @@
 
 Xtherapy::Xtherapy(int d) : Treatment(d) {}
 
-bool Xtherapy::canAssign(LinkedQueue<GymRoom>& rooms, int currentTime, int& ID)
+bool Xtherapy::canAssign(LinkedQueue<Resource * >& rooms, int currentTime, int& ID)
 {
-    GymRoom tempRoom;
+    GymRoom * tempRoom;
 
-    LinkedQueue<GymRoom> tempQueue;
+    LinkedQueue<GymRoom *> tempQueue;
 
     bool assigned = false;
 
     while (!rooms.isEmpty())
     {
-        rooms.dequeue(tempRoom);
+        Resource* tempr;
+        rooms.dequeue(tempr);
+        tempRoom = dynamic_cast<GymRoom*> (tempr);
 
-        if (tempRoom.checkAvailability())
+        if (tempRoom && tempRoom->checkAvailability())
         {
-            if (tempRoom.allocate(ID))
+            if (tempRoom->allocate())
             {
-                assignedResource = &tempRoom;
+                AssignedResource = tempRoom;
 
                 setAssignmentTime(currentTime);
 
-                if (tempRoom.getCurrentCapacity() == 0)
+                if (tempRoom->getCurrentCapacity() == 0)
                 {
-                    tempRoom.setAvailability(false);
+                    tempRoom->setAvailability(false);
                 }
 
                 assigned = true;
@@ -38,7 +40,7 @@ bool Xtherapy::canAssign(LinkedQueue<GymRoom>& rooms, int currentTime, int& ID)
 
     while (!tempQueue.isEmpty())
     {
-        GymRoom temp;
+        GymRoom * temp;
 
         tempQueue.dequeue(temp);
 
@@ -48,3 +50,7 @@ bool Xtherapy::canAssign(LinkedQueue<GymRoom>& rooms, int currentTime, int& ID)
     return assigned;
 }
 
+void Xtherapy::moveToWait()
+{
+    return;
+}

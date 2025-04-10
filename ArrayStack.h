@@ -52,14 +52,12 @@ public:
 		return true;
 	}  // end peek
 
-	template <typename T>
 	int GetCount() const
 	{
 		return top + 1;
 
 	}
 
-	template <typename T>
 	void print() const {
 
 	}

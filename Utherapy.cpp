@@ -2,25 +2,28 @@
 
 Utherapy::Utherapy(int d) : Treatment(d) {}
 
-bool Utherapy::canAssign(LinkedQueue<UltrasoundDevice>& resources, int currentTime, int& ID)
+bool Utherapy::canAssign(LinkedQueue<Resource * >& resources, int currentTime, int& ID)
 {
-    UltrasoundDevice tempResource;
+    U_Device * tempResource;
 
-    LinkedQueue<UltrasoundDevice> tempQueue;
+    LinkedQueue<U_Device * > tempQueue;
 
     bool assigned = false;
 
     while (!resources.isEmpty())
     {
-        resources.dequeue(tempResource);
+        Resource * tempu;
+        resources.dequeue(tempu);
+        
+        tempResource = dynamic_cast<U_Device*> (tempu);
 
-        if (tempResource.allocate(ID))
+        if (tempResource && tempResource->allocate())
         {
-            assignedResource = &tempResource;
+            AssignedResource = tempResource;
 
             setAssignmentTime(currentTime);
 
-            tempResource.setAvailability(false);
+            tempResource->setAvailability(false);
 
             assigned = true;
         }
@@ -31,7 +34,7 @@ bool Utherapy::canAssign(LinkedQueue<UltrasoundDevice>& resources, int currentTi
 
     while (!tempQueue.isEmpty())
     {
-        UltrasoundDevice temp;
+        U_Device * temp;
 
         tempQueue.dequeue(temp);
 
@@ -39,4 +42,9 @@ bool Utherapy::canAssign(LinkedQueue<UltrasoundDevice>& resources, int currentTi
     }
 
     return assigned;
+}
+
+void Utherapy::moveToWait()
+{
+    return;
 }

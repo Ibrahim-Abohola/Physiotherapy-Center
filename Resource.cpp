@@ -4,7 +4,7 @@
 
 Resource::Resource(string type, bool isAvailable) : resourceType(type), isAvailable(true){}
 
-bool Resource::allocate(int& deviceID)
+bool Resource::allocate()
 {
     cout << "something went wrong! you are in class Resource itself";
     return false;

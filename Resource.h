@@ -8,9 +8,10 @@ class Resource
     bool isAvailable;
 
 public:
+    Resource();
     Resource(string type, bool isAvailable);
 
-    virtual bool allocate(int& deviceID);
+    virtual bool allocate();
 
     virtual void release();
 

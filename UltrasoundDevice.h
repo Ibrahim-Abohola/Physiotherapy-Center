@@ -1,15 +1,15 @@
 #pragma once
 #include "Resource.h"
 
-class UltrasoundDevice : public Resource
+class U_Device : public Resource
 {
     static int UID;
 public:
-    UltrasoundDevice();
+    U_Device();
 
     int getUID() const;
 
-    bool allocate(int& deviceID);
+    bool allocate();
 
     void release();
 };
