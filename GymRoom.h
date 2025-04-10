@@ -14,7 +14,7 @@ public:
 
     int getRID() const;
 
-    bool allocate(int& RoomID);
+    bool allocate();
 
     void release();
 

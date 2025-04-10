@@ -1,14 +1,11 @@
 #pragma once
-
 #include <fstream>
-#include "LinkedQueue.h"
 #include "ArrayStack.h"
 #include "SortedQueue.h"
 #include "priQueue.h"
 #include "X_Queue.h"
 #include "Early_PriQueue.h"
-#include "Patient.h"
-#include "Resource.h"
+#include "Patient2.h"
 
 
 class Scheduler {
@@ -18,11 +15,12 @@ class Scheduler {
 	X_Queue<Patient*> X_Waiting;
 	SortedQueue<Patient*> U_Waiting;
 	SortedQueue<Patient*> E_Waiting;
-	LinkedQueue<Resource*> E_Devices;
-	LinkedQueue<Resource*> U_Devices;
-	LinkedQueue<Resource*> X_Rooms;
+	LinkedQueue<Resource*> AvailE_Devices;
+	LinkedQueue<Resource*> AvailU_Devices;
+	LinkedQueue<Resource*> AvailX_Rooms;
 	priQueue<Patient*> In_Treatment;
 	ArrayStack<Patient*> FinishList;
+	int TP; //total number of patients
 	int TWT;  //total waiting time of all patients 
 	int Timestep; // the current time step &&  total timesteps at the end
 	int Total_RPatients;  // total number of r patients
@@ -34,10 +32,12 @@ class Scheduler {
 	int AC_Cancellations; // number of accepted cancellations
 	int AC_Rescheduling; // number of accepted rescheduling
 	double Per_cancellation; // percentage of accepted cancellations
-	double Per_cancellation; // percentage of accepted rescheduling
+	double Per_Rescheduling;//percentage of accepted rescheduling
 	double Per_Early; // percentage of early patients
 	double Per_Late; // percentage of late patients
 	double AvgPenality; // average number of timesteps of the late penality applied for the late patient
+	int pCancel; //probability of cancellation
+	int pResch; // probability of rescheduling
 public:
 	Scheduler();
 	void AddPatient(Patient* p);
@@ -51,9 +51,9 @@ public:
 	void AddToX_Room(Resource* resource);
 	void AddToIn_Treatment(Patient* p);
 	void AddToFinishLIst(Patient* p);
-	void LoadData(ifstream& Input); // to read the input file and initialize lists
-	bool Cancellation(); // to handle cancellations
-	bool reschedule();  // to handle rescheduling
+	void LoadData(); // to read the input file and initialize lists
+	void Cancellation(); // to handle cancellations
+	void reschedule();  // to handle rescheduling
 	void ProcessTimestep(); // to process each time step and make the needed transitions
 	void collectStatistics(); // collect statistics when all patients finish
 	void SetTimestep(int t); 

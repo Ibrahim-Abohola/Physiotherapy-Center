@@ -6,7 +6,7 @@ template <class T>
 class Early_priQueue : public priQueue <T>
 {
 public:
-	Reschdule() {
+	void Reschdule() {
 
 	}
 };

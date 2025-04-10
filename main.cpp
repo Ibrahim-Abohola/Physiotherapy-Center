@@ -3,5 +3,6 @@
 #include "SortedQueue.h"
 
 int main() {
+
 	return 0;
 }
