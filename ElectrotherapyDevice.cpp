@@ -1,30 +1,28 @@
 #include "ElectrotherapyDevice.h"
 
 
-int ElectrotherapyDevice::EID = 0;
+int E_Device::EID = 0;
 
 
-ElectrotherapyDevice::ElectrotherapyDevice() : Resource("Electrotherapy", EID++) {}
+E_Device::E_Device() : Resource("Electrotherapy", ++EID) {}
 
 
-int ElectrotherapyDevice::getEID() const
+int E_Device::getEID() const
 {
     return EID;
 }
 
-bool ElectrotherapyDevice::allocate(int& deviceID)
+bool E_Device::allocate()
 {
     if (checkAvailability())
     {
         setAvailability(false);
-        deviceID = getEID();
         return true;
     }
-    deviceID = -1;
     return false;
 }
 
-void ElectrotherapyDevice::release()
+void E_Device::release()
 {
     setAvailability(true);
 }

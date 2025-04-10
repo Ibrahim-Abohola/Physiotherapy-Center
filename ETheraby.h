@@ -1,15 +1,16 @@
 #pragma once
 #include "Treatment.h"
 #include"ElectrotherapyDevice.h"
+
+
 class ETherapy : public Treatment
 {
-    ElectrotherapyDevice* assignedResource;
 public:
     ETherapy(int d);
 
-    bool canAssign(LinkedQueue<ElectrotherapyDevice>& resources, int currentTime, int& ID);
+    virtual bool canAssign(LinkedQueue<Resource * >& resources, int currentTime, int& ID);
 
-    void moveToWait(Patient& patient, LinkedQueue<Patient>& waitingList);
+    virtual void moveToWait();
 
 };
 

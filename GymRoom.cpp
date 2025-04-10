@@ -11,22 +11,21 @@ int GymRoom::getRID() const
     return RID;
 }
 
-bool GymRoom::allocate(int& RoomID)
+bool GymRoom::allocate()
 {
     if (!checkAvailability())
     {
         return false;
     }
 
-    RoomID = getRID();
-    capacity--;
+    capacity++;
 
     return true;
 }
 
 void GymRoom::release()
 {
-    capacity++;
+    capacity--;
 }
 
 bool GymRoom::checkAvailability() const

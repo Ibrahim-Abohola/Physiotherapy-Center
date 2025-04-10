@@ -2,25 +2,28 @@
 
 ETherapy::ETherapy(int d) : Treatment(d) {}
 
-bool ETherapy::canAssign(LinkedQueue<ElectrotherapyDevice>& resources, int currentTime, int& ID)
+bool ETherapy::canAssign(LinkedQueue<Resource * >& resources, int currentTime, int& ID)
 {
-    ElectrotherapyDevice tempResource;
+    E_Device  * tempResource;
 
-    LinkedQueue<ElectrotherapyDevice> tempQueue;
+    LinkedQueue<E_Device * > tempQueue;
 
     bool assigned = false;
 
     while (!resources.isEmpty())
     {
-        resources.dequeue(tempResource);
+        Resource* tempe;
+        resources.dequeue(tempe);
 
-        if (tempResource.allocate(ID))
+        tempResource = dynamic_cast<E_Device*> (tempe);
+
+        if (tempResource && tempResource->allocate())
         {
-            assignedResource = &tempResource;
+            AssignedResource = tempResource;
 
             setAssignmentTime(currentTime);
 
-            tempResource.setAvailability(false);
+            tempResource->setAvailability(false);
 
             assigned = true;
         }
@@ -32,7 +35,7 @@ bool ETherapy::canAssign(LinkedQueue<ElectrotherapyDevice>& resources, int curre
 
     while (!tempQueue.isEmpty())
     {
-        ElectrotherapyDevice temp;
+        E_Device  * temp;
 
         tempQueue.dequeue(temp);
 
@@ -40,4 +43,9 @@ bool ETherapy::canAssign(LinkedQueue<ElectrotherapyDevice>& resources, int curre
     }
 
     return assigned;
+}
+
+void ETherapy::moveToWait()
+{
+    return;
 }

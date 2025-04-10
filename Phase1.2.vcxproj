@@ -134,8 +134,7 @@
     <ClInclude Include="GymRoom.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Patient.cpp" />
-    <ClInclude Include="Patient.h" />
+    <ClInclude Include="Patient2.h" />
     <ClInclude Include="priNode.h" />
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Scheduler.h" />
@@ -152,6 +151,7 @@
     <ClCompile Include="ETheraby.cpp" />
     <ClCompile Include="GymRoom.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Patient2.cpp" />
     <ClCompile Include="priQueue.h" />
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="Resource.cpp" />

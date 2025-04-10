@@ -6,7 +6,7 @@ template <class T>
 class SortedQueue : public LinkedQueue<T>
 {
 public:
-	SortedQueue() : LinkedQueue()
+	SortedQueue() : LinkedQueue<T>()
 	{
 	}
 	bool InsertSorted(T data) {

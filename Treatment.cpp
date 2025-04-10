@@ -1,6 +1,6 @@
 #include "Treatment.h"
 
-Treatment::Treatment(int d) : duration(d), assignmentTime(-1){}
+Treatment::Treatment(int d) : duration(d), AssignmentTime(-1){}
 
 void Treatment::setDuration(int du)
 {
@@ -19,11 +19,19 @@ void Treatment::setAssignmentTime(int at)
 {
 	if (at > 0)
 	{
-		assignmentTime = at;
+		AssignmentTime = at;
 	}
 }
 
 int Treatment::getAssignmentTime()
 {
-	return assignmentTime;
+	return AssignmentTime;
+}
+
+void Treatment::setResource(Resource* r) {
+	AssignedResource = r;
+}
+
+Resource * Treatment::GetResource() {
+	return AssignedResource;
 }
