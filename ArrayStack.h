@@ -61,7 +61,16 @@ public:
 	void print() const {
 
 	}
+	void PrintStack(const ArrayStack<T>& S)    //ebra was here
+	{
+		cout << endl << "Printing stack contents: ";
 
+		T x;
+		while (S.pop(x))
+			cout << x << " ";
+
+		cout << endl;
+	}
 
 }; // end ArrayStack
 

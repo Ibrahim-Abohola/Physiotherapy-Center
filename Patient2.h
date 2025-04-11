@@ -36,4 +36,5 @@ public:
 	string GetStatus() const;
 	bool operator<=(Patient*& p);
 	bool operator>=(Patient*& p);
+	friend std::ostream& operator<<(std::ostream& os, const Patient& p);
 };

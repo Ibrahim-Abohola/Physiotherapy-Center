@@ -39,6 +39,16 @@ double Scheduler::GetAvgPenality() const {
 	return AvgPenality;
 }
 
+
+int Scheduler::GetTimestep() const{
+	return Timestep;
+}
+
+int Scheduler::GetTP() const
+{
+	return TP;
+}
+
 double Scheduler::GetPer_cancellation() const {
 	return Per_cancellation;
 }
@@ -210,7 +220,58 @@ void Scheduler::ProcessTimestep(){
 
 }
 
+
+
 void Scheduler::collectStatistics() 
 {
 
+}
+
+
+// ======================= Patient Queues =======================
+
+LinkedQueue<Patient*>& Scheduler::Get_All_Patients() {
+	return All_Patients;
+}
+
+Early_priQueue<Patient*>& Scheduler::Get_Early_List() {
+	return EarlyList;
+}
+
+priQueue<Patient*>& Scheduler::Get_Late_List() {
+	return LateList;
+}
+
+X_Queue<Patient*>& Scheduler::Get_X_Waiting() {
+	return X_Waiting;
+}
+
+SortedQueue<Patient*>& Scheduler::Get_U_Waiting() {
+	return U_Waiting;
+}
+
+SortedQueue<Patient*>& Scheduler::Get_E_Waiting() {
+	return E_Waiting;
+}
+
+priQueue<Patient*>& Scheduler::Get_In_Treatment() {
+	return In_Treatment;
+}
+
+ArrayStack<Patient*>& Scheduler::Get_Finish_List() {
+	return FinishList;
+}
+
+// ======================= Resource Queues =======================
+
+LinkedQueue<Resource*>& Scheduler::Get_AvailE_Devices() {
+	return AvailE_Devices;
+}
+
+LinkedQueue<Resource*>& Scheduler::Get_AvailU_Devices() {
+	return AvailU_Devices;
+}
+
+LinkedQueue<Resource*>& Scheduler::Get_AvailX_Rooms() {
+	return AvailX_Rooms;
 }

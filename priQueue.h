@@ -18,6 +18,17 @@ public:
         while (dequeue(tmp, p));
     }
 
+    priQueue(const priQueue<T>& LQ) //ebra was here
+    {
+        frontPtr = backPtr = nullptr;
+        priNode<T>* NodePtr = LQ.frontPtr;	//start at the front node in LQ
+        while (NodePtr)
+        {
+            enqueue(NodePtr->getItem());	//get data of each node and enqueue it in this queue 
+            NodePtr = NodePtr->getNext();
+        }
+    }
+
     //insert the new node in its correct position according to its priority
     void enqueue(const T& data, int priority) {
         priNode<T>* newNode = new priNode<T>(data, priority);
@@ -66,4 +77,15 @@ public:
     int GetCount() const {
         return count;
     }
+    void PrintQueue(priQueue<T> Q)     //ebra was here
+    {
+        //For this function to work properly, the LikedQueue class MUST
+        //have  a copy constructor (pass by value)
+        T K;
+        cout << "\nQueue contents: ";
+        while (Q.dequeue(K))
+            cout << K << " ";
+        cout << endl;
+    }
+
 };

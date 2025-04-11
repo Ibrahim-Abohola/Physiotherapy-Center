@@ -100,3 +100,8 @@ bool Patient::operator<=(Patient*& p) {
 bool Patient::operator>=(Patient*& p) {
 	return (PT + Penality >= p->PT + p->Penality);
 }
+
+std::ostream& operator<<(std::ostream& os, const Patient& p) {
+	os <<"P" << p.GetID << "_" << p.GetVT();
+	return os;
+}
