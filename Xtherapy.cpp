@@ -50,7 +50,11 @@ bool Xtherapy::canAssign(LinkedQueue<Resource * >& rooms, int currentTime, int& 
     return assigned;
 }
 
-void Xtherapy::moveToWait()
+void Xtherapy::moveToWait(Patient* p, Scheduler* scheduler)
 {
-    return;
+    if (p && scheduler) 
+    {
+        scheduler->AddToX_Waiting(p);
+    }
 }
+
