@@ -139,7 +139,7 @@
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="EU_Queue.h" />
+    <ClInclude Include="SortedQueue.h" />
     <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
     <ClInclude Include="UI.h" />

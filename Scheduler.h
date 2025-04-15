@@ -1,7 +1,7 @@
 #pragma once
 #include <fstream>
 #include "ArrayStack.h"
-#include "EU_Queue.h"
+#include "SortedQueue.h"
 #include "priQueue.h"
 #include "X_Queue.h"
 #include "Early_PriQueue.h"
@@ -13,8 +13,8 @@ class Scheduler {
 	Early_priQueue<Patient*> EarlyList;
 	priQueue<Patient*> LateList;
 	X_Queue<Patient*> X_Waiting;
-	EU_Queue<Patient*> U_Waiting;
-	EU_Queue<Patient*> E_Waiting;
+	SortedQueue<Patient*> U_Waiting;
+	SortedQueue<Patient*> E_Waiting;
 	LinkedQueue<Resource*> AvailE_Devices;
 	LinkedQueue<Resource*> AvailU_Devices;
 	LinkedQueue<Resource*> AvailX_Rooms;
@@ -52,9 +52,6 @@ public:
 	void AddToIn_Treatment(Patient* p);
 	void AddToFinishLIst(Patient* p);
 	void LoadData(); // to read the input file and initialize lists
-	void Cancellation(); // to handle cancellations
-	void reschedule();  // to handle rescheduling
-	void simulate(); // to process each time step and make the needed transitions
 	bool Cancellation(Patient& p); // to handle cancellations
 	bool reschedule(Patient& p);  // to handle rescheduling
 	void ProcessTimestep(); // to process each time step and make the needed transitions
