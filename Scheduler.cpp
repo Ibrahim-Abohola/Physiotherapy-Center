@@ -186,15 +186,26 @@ void Scheduler::LoadData() {
 
 }
 
-void Scheduler::Cancellation() {
-	return;
+void Scheduler::Cancellation() 
+{
+	Patient* P;
+	if (X_Waiting.Cancel2(P))
+		FinishList.push(P);
 }
 
-void Scheduler::reschedule() {
-	return;
+void Scheduler::reschedule() 
+{
+	Patient* P;
+	if(EarlyList.Reschedule2(P))
+	{
+		int newPT = rand() % (P->GetPT() / 2) + P->GetPT() + 1;
+		P->ModifyPT(newPT);
+		AddToEarly(P);
+	}
+	
 }
 
-void Scheduler::ProcessTimestep(){
+void Scheduler::simulate(){
 
 	do {
 		Patient* P;
