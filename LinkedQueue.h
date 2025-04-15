@@ -14,9 +14,11 @@ class LinkedQueue :public QueueADT<T>
 {
 
 protected:
+
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 	int count;
+
 public:
 	LinkedQueue();
 	bool isEmpty() const;

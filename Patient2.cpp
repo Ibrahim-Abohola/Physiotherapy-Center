@@ -1,4 +1,4 @@
-#include "Patient.h"
+#include "Patient2.h"
 
 int Patient::ID = 0;
 
@@ -28,11 +28,13 @@ void Patient::AddTreatment(Treatment* treatment)
 	TreatmentList.enqueue(treatment);
 }
 
-Treatment* Patient::RemoveTreatment()
+void Patient::RemoveTreatment(Resource *& r)
 {
-	Treatment* treatment;
+	Treatment * treatment;
 	TreatmentList.dequeue(treatment);
-	return treatment;
+	r = treatment->GetResource();
+	delete treatment;
+	treatment = NULL;
 }
 
 void Patient::UpdateWT(int t) {
@@ -66,9 +68,16 @@ int Patient::GetPT() const {
 	return PT;
 }
 
+void Patient::ModifyPT(int t)
+{
+	if (t > PT)
+		PT = t;
+}
+
 int Patient::GetVT() const {
 	return VT;
 }
+
 
 int Patient::GetTT() const {
 	return TT;
@@ -89,7 +98,7 @@ string Patient::GetStatus() const {
 }
 
 Treatment* Patient::GetCurrentTreatment() {
-	Treatment* curr;
+	Treatment * curr;
 	TreatmentList.peek(curr);
 	if (curr)
 		return curr;
@@ -104,6 +113,18 @@ bool Patient::operator>=(Patient*& p) {
 	return (PT + Penality >= p->PT + p->Penality);
 }
 
+
+int Patient::operator!() {
+
+	Treatment* t;
+	TreatmentList.peek(t);
+	return (t->getDuration());
+}
+
+bool Patient::operator~() 
+{
+	return (TreatmentList.GetCount() == 1);
+}
 ostream& operator<<(ostream& os, const Patient& p) {
 	os << "P" << p.GetID() << "_" << p.GetVT();
 	return os;

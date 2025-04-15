@@ -1,6 +1,6 @@
 #include "LinkedQueue.h"
 #include "priQueue.h"
-#include "SortedQueue.h"
+#include "EU_Queue.h"
 #include "UI.h"
 #include "Scheduler.h"
 
