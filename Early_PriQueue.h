@@ -17,7 +17,7 @@ public:
 			ptr = ptr->getNext();
 			index--;
 		}
-		count--;
+		count--; //
 
 		P = ptr->getItem();
 
