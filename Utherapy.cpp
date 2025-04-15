@@ -44,7 +44,10 @@ bool Utherapy::canAssign(LinkedQueue<Resource * >& resources, int currentTime, i
     return assigned;
 }
 
-void Utherapy::moveToWait()
+void Utherapy::moveToWait(Patient* p, Scheduler* scheduler)
 {
-    return;
+    if (p && scheduler) 
+    {
+        scheduler->AddToU_Waiting(p);
+    }
 }

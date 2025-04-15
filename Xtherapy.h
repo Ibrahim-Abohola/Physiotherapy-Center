@@ -12,7 +12,7 @@ public:
 
     virtual bool canAssign(LinkedQueue<Resource * >& rooms, int currentTime, int& ID);
 
-    virtual void moveToWait();
+    virtual void moveToWait(Patient* p, Scheduler* scheduler);
 
 };
 
