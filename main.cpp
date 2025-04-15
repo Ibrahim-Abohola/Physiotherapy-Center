@@ -7,8 +7,6 @@
 using namespace std;
 
 int main() {
-	//Scheduler s // ui u;
-
 	cout << "Choose The Mode.." << endl;
 	cout << "1- Interactive Mode\n2- Silent Mode" << endl;
 	int mode;
@@ -19,8 +17,10 @@ int main() {
 	}	
 
 	if(mode == 1){
-		//
-		//
+		Scheduler scheduler;
+		scheduler.LoadData();
+		UI ui(scheduler);
+		ui.OutputScreen();
 		cout << "1";
 	}
 	else {

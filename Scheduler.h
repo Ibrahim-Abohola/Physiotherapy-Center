@@ -52,8 +52,8 @@ public:
 	void AddToIn_Treatment(Patient* p);
 	void AddToFinishLIst(Patient* p);
 	void LoadData(); // to read the input file and initialize lists
-	/**/void Cancellation(); // to handle cancellations
-	/**/void reschedule();  // to handle rescheduling
+	bool Cancellation(Patient& p); // to handle cancellations
+	bool reschedule(Patient& p);  // to handle rescheduling
 	void ProcessTimestep(); // to process each time step and make the needed transitions
 	void collectStatistics(); // collect statistics when all patients finish
 	void SetTimestep(int t); 

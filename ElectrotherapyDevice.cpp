@@ -1,5 +1,5 @@
 #include "ElectrotherapyDevice.h"
-
+#include<iostream>
 
 int E_Device::EID = 0;
 
@@ -25,4 +25,14 @@ bool E_Device::allocate()
 void E_Device::release()
 {
     setAvailability(true);
+}
+
+ostream& operator<<(ostream& os, const E_Device& p) {
+    return os;
+}
+
+void E_Device::print(ostream& os) const
+{
+    os << EID << " ";
+
 }

@@ -154,4 +154,9 @@
       <UniqueIdentifier>{1e2e52b4-4be0-485e-9ff2-316fe1b44472}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="in.txt">
+      <Filter>Classes</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

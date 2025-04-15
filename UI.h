@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
 #include "Scheduler.h"
 #include "priQueue.h"
 
@@ -9,9 +8,9 @@
 using namespace std;
 
 class UI {
-    Scheduler s; // pointers
+    Scheduler * scheduler;
 public:
-    UI();
+    UI(Scheduler sched);
     void OutputScreen();
 
    

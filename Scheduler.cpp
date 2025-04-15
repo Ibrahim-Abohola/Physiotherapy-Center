@@ -1,5 +1,7 @@
 #include "Scheduler.h"
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 
 Scheduler::Scheduler() :
 	TWT(0), Timestep(0), Total_NPatients(0), Total_RPatients(0), AC_Cancellations(0), AC_Rescheduling(0), AvgPenality(0),
@@ -142,10 +144,10 @@ void Scheduler::AddToFinishLIst(Patient* p) {
 void Scheduler::LoadData() {
 
 	ifstream Input;
-	cout << "Enter the name of the input file";
+	cout << "Enter the name of the input file"<<endl;
 	string in;
 	cin >> in;
-	in += "txt";
+	in += ".txt";
 	Input.open(in);
 	int n;
 	Input >> n;
@@ -171,13 +173,13 @@ void Scheduler::LoadData() {
 	while (n--) {
 		char type;
 		int pt,vt,nt;
-		cin >> type;
-		cin >> pt >> vt >> nt;
+		Input >> type;
+		Input >> pt >> vt >> nt;
 		Patient* P = new Patient(type, pt, vt);
 		while (nt--) {
 			int duration;
-			cin >> type;
-			cin >> duration;
+			Input >> type;
+			Input >> duration;
 			Treatment * T;
 			if (type == 'E')
 				T = new ETherapy(duration);
@@ -196,12 +198,55 @@ void Scheduler::LoadData() {
 
 }
 
-void Scheduler::Cancellation() {
-	return;
+bool Scheduler::Cancellation(Patient& p) {
+	LinkedQueue<Patient*> tempQueue;
+	bool found = false;
+	Patient* current;
+
+	while (!All_Patients.isEmpty()) {
+		All_Patients.dequeue(current);
+		if (current->GetID() == p.GetID()) {
+			found = true;
+			delete current; // Optional: free memory if needed
+			continue;       // skip enqueueing this one
+		}
+		tempQueue.enqueue(current);
+	}
+
+	// Move items back to original queue
+	while (!tempQueue.isEmpty()) {
+		tempQueue.dequeue(current);
+		All_Patients.enqueue(current);
+	}
+
+	return found;
 }
 
-void Scheduler::reschedule() {
-	return;
+bool Scheduler::reschedule(Patient& p){
+	srand(time(0));
+	int nt = rand() % (All_Patients.GetCount());
+
+	LinkedQueue<Patient*> tempQueue;
+	bool found = false;
+	Patient* current;
+
+	while (!All_Patients.isEmpty()) {
+		All_Patients.dequeue(current);
+		if (current->GetID() == p.GetID()) {
+			found = true;
+			p.SetPT(nt) ;
+			continue;       // skip enqueueing this one
+		}
+		tempQueue.enqueue(current);
+	}
+
+	// Move items back to original queue
+	while (!tempQueue.isEmpty()) {
+		tempQueue.dequeue(current);
+		All_Patients.enqueue(current);
+	}
+
+	return found;
 }
 
 void Scheduler::ProcessTimestep(){

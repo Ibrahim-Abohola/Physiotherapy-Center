@@ -42,18 +42,6 @@ LinkedQueue<T>::LinkedQueue()
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
-template <typename T>
-LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)   //ebra was here
-{
-	frontPtr = backPtr = nullptr;
-	Node<T>* NodePtr = LQ.frontPtr;	//start at the front node in LQ
-	while (NodePtr)
-	{
-		enqueue(NodePtr->getItem());	//get data of each node and enqueue it in this queue 
-		NodePtr = NodePtr->getNext();
-	}
-}
-/////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
 bool LinkedQueue<T>::isEmpty() const
@@ -154,20 +142,21 @@ void LinkedQueue<T>::PrintQueue(LinkedQueue<T> Q ,int f) //ebra was here
 	//have  a copy constructor (pass by value)
 	if (f == 0) {
 		T K;
-		cout << "\nQueue contents: ";
 		while (Q.dequeue(K))
-			cout << K << " ";
+		{
+			if (K)
+				cout << *K << " ";  // dereference the pointer to print the value
+		}
 		cout << endl;
 	}
 	else {
 		for (int i = 0; i < f; i++) {
 			T K;
 			if (Q.dequeue(K))
-				cout << K << " ";
+				cout << *K << " ";
 			else
 				break;
 		}
 	}
 }
-
 #endif
