@@ -31,9 +31,11 @@
     <ClInclude Include="Patient2.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="priQueue.h">
       <Filter>DS</Filter>
@@ -95,6 +97,10 @@
     <ClCompile Include="Patient2.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayStack.h">
@@ -147,5 +153,10 @@
     <Filter Include="Classes">
       <UniqueIdentifier>{1e2e52b4-4be0-485e-9ff2-316fe1b44472}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="in.txt">
+      <Filter>Classes</Filter>
+    </Text>
   </ItemGroup>
 </Project>

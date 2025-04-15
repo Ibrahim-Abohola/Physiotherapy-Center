@@ -52,8 +52,8 @@ public:
 	void AddToIn_Treatment(Patient* p);
 	void AddToFinishLIst(Patient* p);
 	void LoadData(); // to read the input file and initialize lists
-	void Cancellation(); // to handle cancellations
-	void reschedule();  // to handle rescheduling
+	bool Cancellation(Patient& p); // to handle cancellations
+	bool reschedule(Patient& p);  // to handle rescheduling
 	void ProcessTimestep(); // to process each time step and make the needed transitions
 	void collectStatistics(); // collect statistics when all patients finish
 	void SetTimestep(int t); 
@@ -69,6 +69,24 @@ public:
 	double GetPer_Early() const;
 	double GetPer_Late() const;
 	double GetAvgPenality() const;
+
+	int GetTimestep() const;  //ebra added
+	int GetTP() const;		  //ebra added
+
+	LinkedQueue<Patient*>& Get_All_Patients();    //ebra added
+	Early_priQueue<Patient*>& Get_Early_List();	  //ebra added
+	priQueue<Patient*>& Get_Late_List();		  //ebra added
+	X_Queue<Patient*>& Get_X_Waiting();		      //ebra added
+	SortedQueue<Patient*>& Get_U_Waiting();		  //ebra added
+	SortedQueue<Patient*>& Get_E_Waiting();		  //ebra added
+	priQueue<Patient*>& Get_In_Treatment();		  //ebra added
+	ArrayStack<Patient*>& Get_Finish_List();	  //ebra added
+
+	LinkedQueue<Resource*>& Get_AvailE_Devices(); //ebra added
+	LinkedQueue<Resource*>& Get_AvailU_Devices(); //ebra added
+	LinkedQueue<Resource*>& Get_AvailX_Rooms();	  //ebra added
+
+
 
 
 };

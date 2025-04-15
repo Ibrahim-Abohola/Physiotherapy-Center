@@ -1,5 +1,5 @@
 #include "GymRoom.h"
-
+#include<iostream>
 int GymRoom::RID = 0;
 
 GymRoom::GymRoom() : Resource("Gym", ++RID), maxRoomSize(0), capacity(0) {}
@@ -38,6 +38,9 @@ int GymRoom::getMaxRoomSize() const
     return maxRoomSize;
 }
 
+void GymRoom::print(ostream& os) const {
+    os << "R" << RID << "[" << capacity << "," << maxRoomSize << "] ";
+}
 int GymRoom::getCurrentCapacity() const
 {
     return capacity;
