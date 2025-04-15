@@ -39,4 +39,8 @@ public:
 	bool operator>=(Patient*& p);
 	int operator!(); // overloading operator to get curr tretment duration for computing TL of wait lists
 	bool operator~(); // overloading operator to check if the curr treatment is the last treatment for the cancel function
+	friend ostream& operator<<(ostream& os, const Patient& res);
+
+
+
 };

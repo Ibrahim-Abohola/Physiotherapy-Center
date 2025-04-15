@@ -1,6 +1,7 @@
 #pragma once
 #include "priNode.h"
-
+#include <iostream>
+using namespace std;
 
 //This class impelements the priority queue as a sorted list (Linked List)
 //The item with highest priority is at the front of the queue
@@ -20,6 +21,9 @@ public:
         int p;
         while (dequeue(tmp, p));
     }
+
+   
+
 
     //insert the new node in its correct position according to its priority
     void enqueue(const T& data, int priority) {
@@ -69,4 +73,16 @@ public:
     int GetCount() const {
         return count;
     }
+    void PrintQueue(priQueue<T> Q)  // ebra was here
+    {
+        T K;
+        int x = 0;
+        while (Q.dequeue(K, x))
+        {
+            if (K)
+                cout << *K << " ";  // dereference the pointer to print the value
+        }
+        cout << endl;
+    }
+
 };

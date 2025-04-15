@@ -142,6 +142,7 @@
     <ClInclude Include="EU_Queue.h" />
     <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="UltrasoundDevice.h" />
     <ClInclude Include="Utherapy.h" />
     <ClInclude Include="Xtherapy.h" />
@@ -156,10 +157,14 @@
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Treatment.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="UltrasoundDevice.cpp" />
     <ClCompile Include="Utherapy.cpp" />
     <ClCompile Include="Xtherapy.cpp" />
     <ClCompile Include="X_Queue.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="in.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

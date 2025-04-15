@@ -26,6 +26,15 @@ void Resource::setAvailability(bool av)
     isAvailable = av;
 }
 
+void Resource::print(ostream& os) const {
+}
+
+
+ostream& operator<<(ostream& os, const Resource& res) {
+    res.print(os);
+    return os;
+}
+
 string Resource::getResourceType() const
 {
     return resourceType;

@@ -3,6 +3,9 @@
 #define ARRAY_STACK_
 
 #include "StackADT.h"
+#include <iostream>
+using namespace std;
+
 
  //Unless spesificed by the stack user, the default size is 100
 template<typename T>
@@ -61,6 +64,19 @@ public:
 	void print() const {
 
 	}
+	void PrintStack(const ArrayStack<T>& S)    // ebra was here
+	{
+		cout << endl;
+
+		ArrayStack<T> temp = S;  // make a copy
+
+		T x;
+		while (temp.pop(x))
+			cout << *x << " ";
+
+		cout << endl;
+	}
+
 
 
 }; // end ArrayStack

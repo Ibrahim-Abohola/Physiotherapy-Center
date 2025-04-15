@@ -1,5 +1,7 @@
 #include "Scheduler.h"
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 
 Scheduler::Scheduler() :
 	TWT(0), Timestep(0), Total_NPatients(0), Total_RPatients(0), AC_Cancellations(0), AC_Rescheduling(0), AvgPenality(0),
@@ -37,6 +39,16 @@ double Scheduler::GetAvgWT_N() const {
 
 double Scheduler::GetAvgPenality() const {
 	return AvgPenality;
+}
+
+
+int Scheduler::GetTimestep() const{
+	return Timestep;
+}
+
+int Scheduler::GetTP() const
+{
+	return TP;
 }
 
 double Scheduler::GetPer_cancellation() const {
@@ -132,10 +144,10 @@ void Scheduler::AddToFinishLIst(Patient* p) {
 void Scheduler::LoadData() {
 
 	ifstream Input;
-	cout << "Enter the name of the input file";
+	cout << "Enter the name of the input file"<<endl;
 	string in;
 	cin >> in;
-	in += "txt";
+	in += ".txt";
 	Input.open(in);
 	int n;
 	Input >> n;
@@ -161,13 +173,13 @@ void Scheduler::LoadData() {
 	while (n--) {
 		char type;
 		int pt,vt,nt;
-		cin >> type;
-		cin >> pt >> vt >> nt;
+		Input >> type;
+		Input >> pt >> vt >> nt;
 		Patient* P = new Patient(type, pt, vt);
 		while (nt--) {
 			int duration;
-			cin >> type;
-			cin >> duration;
+			Input >> type;
+			Input >> duration;
 			Treatment * T;
 			if (type == 'E')
 				T = new ETherapy(duration);
@@ -203,6 +215,55 @@ void Scheduler::reschedule()
 		AddToEarly(P);
 	}
 	
+bool Scheduler::Cancellation(Patient& p) {
+	LinkedQueue<Patient*> tempQueue;
+	bool found = false;
+	Patient* current;
+
+	while (!All_Patients.isEmpty()) {
+		All_Patients.dequeue(current);
+		if (current->GetID() == p.GetID()) {
+			found = true;
+			delete current; // Optional: free memory if needed
+			continue;       // skip enqueueing this one
+		}
+		tempQueue.enqueue(current);
+	}
+
+	// Move items back to original queue
+	while (!tempQueue.isEmpty()) {
+		tempQueue.dequeue(current);
+		All_Patients.enqueue(current);
+	}
+
+	return found;
+}
+
+bool Scheduler::reschedule(Patient& p){
+	srand(time(0));
+	int nt = rand() % (All_Patients.GetCount());
+
+	LinkedQueue<Patient*> tempQueue;
+	bool found = false;
+	Patient* current;
+
+	while (!All_Patients.isEmpty()) {
+		All_Patients.dequeue(current);
+		if (current->GetID() == p.GetID()) {
+			found = true;
+			p.SetPT(nt) ;
+			continue;       // skip enqueueing this one
+		}
+		tempQueue.enqueue(current);
+	}
+
+	// Move items back to original queue
+	while (!tempQueue.isEmpty()) {
+		tempQueue.dequeue(current);
+		All_Patients.enqueue(current);
+	}
+
+	return found;
 }
 
 void Scheduler::simulate(){
@@ -221,7 +282,58 @@ void Scheduler::simulate(){
 
 }
 
+
+
 void Scheduler::collectStatistics() 
 {
 
+}
+
+
+// ======================= Patient Queues =======================
+
+LinkedQueue<Patient*>& Scheduler::Get_All_Patients() {
+	return All_Patients;
+}
+
+Early_priQueue<Patient*>& Scheduler::Get_Early_List() {
+	return EarlyList;
+}
+
+priQueue<Patient*>& Scheduler::Get_Late_List() {
+	return LateList;
+}
+
+X_Queue<Patient*>& Scheduler::Get_X_Waiting() {
+	return X_Waiting;
+}
+
+SortedQueue<Patient*>& Scheduler::Get_U_Waiting() {
+	return U_Waiting;
+}
+
+SortedQueue<Patient*>& Scheduler::Get_E_Waiting() {
+	return E_Waiting;
+}
+
+priQueue<Patient*>& Scheduler::Get_In_Treatment() {
+	return In_Treatment;
+}
+
+ArrayStack<Patient*>& Scheduler::Get_Finish_List() {
+	return FinishList;
+}
+
+// ======================= Resource Queues =======================
+
+LinkedQueue<Resource*>& Scheduler::Get_AvailE_Devices() {
+	return AvailE_Devices;
+}
+
+LinkedQueue<Resource*>& Scheduler::Get_AvailU_Devices() {
+	return AvailU_Devices;
+}
+
+LinkedQueue<Resource*>& Scheduler::Get_AvailX_Rooms() {
+	return AvailX_Rooms;
 }

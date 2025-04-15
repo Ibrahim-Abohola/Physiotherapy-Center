@@ -51,6 +51,9 @@ void Patient::SetFT(int t) {
 	if (t > 0)
 		FT = t;
 }
+void Patient::SetPT(int t) {
+	PT = t;
+}
 
 
 int Patient::GetFT() const {
@@ -110,6 +113,7 @@ bool Patient::operator>=(Patient*& p) {
 	return (PT + Penality >= p->PT + p->Penality);
 }
 
+
 int Patient::operator!() {
 
 	Treatment* t;
@@ -120,4 +124,8 @@ int Patient::operator!() {
 bool Patient::operator~() 
 {
 	return (TreatmentList.GetCount() == 1);
+}
+ostream& operator<<(ostream& os, const Patient& p) {
+	os << "P" << p.GetID() << "_" << p.GetVT();
+	return os;
 }

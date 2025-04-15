@@ -1,6 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClInclude Include="Xtherapy.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Utherapy.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="UltrasoundDevice.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Treatment.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="GymRoom.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ETheraby.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectrotherapyDevice.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient2.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="priQueue.h">
       <Filter>DS</Filter>
@@ -38,6 +67,10 @@
     <ClCompile Include="Scheduler.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayStack.h">
@@ -64,31 +97,8 @@
     <ClInclude Include="EU_Queue.h">
       <Filter>DS</Filter>
     </ClInclude>
-    <ClInclude Include="ElectrotherapyDevice.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="ETheraby.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="GymRoom.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Patient2.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
+  
     <ClInclude Include="Resource.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Utherapy.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Xtherapy.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="UltrasoundDevice.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Treatment.h">
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="Scheduler.h">
@@ -102,5 +112,10 @@
     <Filter Include="Classes">
       <UniqueIdentifier>{90835853-f86a-4c5c-8df2-7ccf86617d12}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="in.txt">
+      <Filter>Classes</Filter>
+    </Text>
   </ItemGroup>
 </Project>
