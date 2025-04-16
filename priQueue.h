@@ -69,4 +69,18 @@ public:
     int GetCount() const {
         return count;
     }
+    void PrintQueue()  // ebra was here
+    {
+        priNode<T>* ptr = this->head;
+
+        while (ptr)
+        {
+            int pri;
+            T k = ptr->getItem(pri);
+            if (k)
+                cout << *k << " ";  // dereference the pointer to print the value
+            ptr = ptr->getNext();
+        }
+    }
+
 };

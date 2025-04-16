@@ -13,7 +13,7 @@ template <typename T>
 class LinkedQueue :public QueueADT<T>
 {
 
-protected:
+protected:		
 
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
@@ -26,7 +26,7 @@ public:
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
 	int GetCount() const;
-	void print() const;
+	void PrintQueue(int f = 0);
 	~LinkedQueue();
 
 	//copy constructor
@@ -142,4 +142,28 @@ LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
 	}
 }
 
+template <typename T>
+void LinkedQueue<T>::PrintQueue(int f) //ebra was here
+{
+	if (!isEmpty()) {
+		Node<T>* ptr = this->frontPtr;
+		if (f == 0) {
+			while (ptr)
+			{
+				T K = ptr->getItem();
+				if (K)
+					cout << *K << " ";  // dereference the pointer to print the value
+				ptr = ptr->getNext();
+			}
+		}
+		else {
+			while(ptr && f--){
+				T K = ptr->getItem();
+				if (K)
+					cout << *K << " ";  // dereference the pointer to print the value
+				ptr = ptr->getNext();
+			}
+		}
+	}
+}
 #endif

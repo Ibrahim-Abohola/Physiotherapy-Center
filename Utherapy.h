@@ -3,13 +3,17 @@
 #include "UltrasoundDevice.h"
 
 
+class Scheduler;
+class Patient;
+
+
 class Utherapy : public Treatment
 {
 public:
 
     Utherapy(int d);
 
-    virtual bool canAssign(LinkedQueue<Resource * >& resources, int currentTime, int& ID);
+    virtual bool canAssign(Resource* r, int currentTime);
 
     virtual void moveToWait();
 

@@ -2,11 +2,15 @@
 
 int U_Device::UID = 0;
 
-U_Device::U_Device() : Resource("Ultrasound", ++UID) {}
+U_Device::U_Device() : Resource("Ultrasound") {
+
+    UID++;
+    ID = UID;
+}
 
 int U_Device::getUID() const
 {
-    return UID;
+    return ID;
 }
 
 bool U_Device::allocate()
@@ -22,4 +26,10 @@ bool U_Device::allocate()
 void U_Device::release()
 {
     setAvailability(true);
+}
+
+void U_Device::print(ostream& os) const
+{
+    os << ID << " ";
+
 }

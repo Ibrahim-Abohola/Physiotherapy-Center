@@ -4,5 +4,8 @@
 
 int main() {
 
+	srand(time(NULL));
+	Scheduler scheduler;
+	scheduler.simulate();
 	return 0;
 }

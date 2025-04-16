@@ -8,8 +8,8 @@ class Resource
     bool isAvailable;
 
 public:
-    Resource();
-    Resource(string type, bool isAvailable);
+
+    Resource(string type);
 
     virtual bool allocate();
 

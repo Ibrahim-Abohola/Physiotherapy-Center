@@ -3,6 +3,10 @@
 #include "GymRoom.h"
 
 
+class Scheduler;
+class Patient;
+
+
 class Xtherapy : public Treatment
 {
    
@@ -10,7 +14,7 @@ public:
 
     Xtherapy(int d);
 
-    virtual bool canAssign(LinkedQueue<Resource * >& rooms, int currentTime, int& ID);
+    virtual bool canAssign(Resource* r, int currentTime);
 
     virtual void moveToWait();
 

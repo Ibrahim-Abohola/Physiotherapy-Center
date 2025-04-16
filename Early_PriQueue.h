@@ -6,30 +6,34 @@ template <class T>
 class Early_priQueue : public priQueue <T>
 {
 public:
-	bool Reschedule2( T& P)
+	bool Reschedule( T& P)
 	{
-		srand(time(NULL));
-		int index = rand() % count;  // random number from 0 to count
-		Node<T>* ptr = head;
+	
+		if (this->isEmpty())
+			return false;
+
+		int index = rand() % this->count;  // random number from 0 to count
+		priNode<T>* ptr = this->head;
 		index--;
 		while (index >= 0)
 		{
 			ptr = ptr->getNext();
 			index--;
 		}
-		count--;
+		this->count--;
 
-		P = ptr->getItem();
+		int pri;
+		P = ptr->getItem(pri);
 
-		if (ptr == head)
+		if (ptr == this->head)
 		{
-			head = this->head->getNext();
+			this->head = this->head->getNext();
 			delete ptr;
 			ptr = NULL;
 		}
 		else
 		{
-			Node <T>* prev = this->head;
+			priNode <T>* prev = this->head;
 			while (prev && prev->getNext() != ptr)
 			{
 				prev = prev->getNext();

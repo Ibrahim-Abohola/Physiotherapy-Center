@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Resource::Resource(string type, bool isAvailable) : resourceType(type), isAvailable(true){}
+Resource::Resource(string type) : resourceType(type), isAvailable(true){}
 
 bool Resource::allocate()
 {

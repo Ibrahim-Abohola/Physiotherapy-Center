@@ -58,8 +58,18 @@ public:
 
 	}
 
-	void print() const {
+	void PrintStack()    
+	{
+		int index = 0;
+		while (index <= top)
+		{
+			T item;
+			item = items[index];
+			cout << *item<<", ";
+			index++;
+		}
 
+		cout << endl;
 	}
 
 

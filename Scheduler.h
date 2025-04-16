@@ -5,8 +5,9 @@
 #include "priQueue.h"
 #include "X_Queue.h"
 #include "Early_PriQueue.h"
-#include "Patient2.h"
+#include "Patient.h"
 
+class UI;
 
 class Scheduler {
 	LinkedQueue<Patient*> All_Patients;
@@ -40,21 +41,22 @@ class Scheduler {
 	int pResch; // probability of rescheduling
 public:
 	Scheduler();
-	void AddPatient(Patient* p);
-	void AddToEarly(Patient* p);
-	void AddToLate(Patient* p);
-	void AddToU_Waiting(Patient* p);
-	void AddToX_Waiting(Patient* p);
-	void AddToE_Waiting(Patient* p);
-	void AddToU_Device(Resource* resource);
-	void AddToE_Device(Resource* resource);
-	void AddToX_Room(Resource* resource);
-	void AddToIn_Treatment(Patient* p);
-	void AddToFinishLIst(Patient* p);
-	void LoadData(); // to read the input file and initialize lists
+	void AddPatient(Patient*& p);
+	void AddToEarly(Patient*& p);
+	void AddToLate(Patient*& p);
+	void AddToU_Waiting(Patient*& p);
+	void AddToX_Waiting(Patient*& p);
+	void AddToE_Waiting(Patient*& p);
+	void AddToU_Device(Resource*& resource);
+	void AddToE_Device(Resource*& resource);
+	void AddToX_Room(Resource*& resource);
+	void AddToIn_Treatment(Patient*& p);
+	void AddToFinishLIst(Patient*& p);
+	void LoadData(string in); // to read the input file and initialize lists
 	void Cancellation(); // to handle cancellations
 	void reschedule();  // to handle rescheduling
 	void simulate(); // to process each time step and make the needed transitions
+	void RandomWaiting(Patient *& P);
 	void collectStatistics(); // collect statistics when all patients finish
 	void SetTimestep(int t); 
 	int GetTWT() const;
@@ -69,6 +71,24 @@ public:
 	double GetPer_Early() const;
 	double GetPer_Late() const;
 	double GetAvgPenality() const;
+
+	int GetTimestep() const;  //ebra added
+	int GetTP() const;		  //ebra added
+
+	LinkedQueue<Patient*>& Get_All_Patients();    //ebra added
+	Early_priQueue<Patient*>& Get_Early_List();	  //ebra added
+	priQueue<Patient*>& Get_Late_List();		  //ebra added
+	X_Queue<Patient*>& Get_X_Waiting();		      //ebra added
+	EU_Queue<Patient*>& Get_U_Waiting();		  //ebra added
+	EU_Queue<Patient*>& Get_E_Waiting();		  //ebra added
+	priQueue<Patient*>& Get_In_Treatment();		  //ebra added
+	ArrayStack<Patient*>& Get_Finish_List();	  //ebra added
+
+	LinkedQueue<Resource*>& Get_AvailE_Devices(); //ebra added
+	LinkedQueue<Resource*>& Get_AvailU_Devices(); //ebra added
+	LinkedQueue<Resource*>& Get_AvailX_Rooms();	  //ebra added
+
+
 
 
 };

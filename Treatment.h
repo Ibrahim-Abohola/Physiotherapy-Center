@@ -2,6 +2,9 @@
 #include"Resource.h"
 #include"LinkedQueue.h"
 
+class Scheduler;
+class Patient;
+
 class Treatment
 {
 
@@ -19,6 +22,10 @@ public:
     int getAssignmentTime();
     void setResource(Resource*);
     Resource* GetResource();
+
+    virtual bool canAssign(Resource* r, int currentTime) = 0;
+
+    virtual void moveToWait(Patient* p, Scheduler* scheduler) = 0;
 
     virtual ~Treatment() {}
 };

@@ -1,6 +1,8 @@
 #include "Treatment.h"
+#include "Patient.h"
+#include "Scheduler.h"
 
-Treatment::Treatment(int d) : duration(d), AssignmentTime(-1){}
+Treatment::Treatment(int d) : duration(d), AssignmentTime(0){}
 
 void Treatment::setDuration(int du)
 {
