@@ -16,7 +16,7 @@ public:
 
     virtual bool canAssign(Resource* r, int currentTime);
 
-    virtual void moveToWait();
+    virtual void moveToWait(Patient* p, Scheduler* scheduler);
 
 };
 

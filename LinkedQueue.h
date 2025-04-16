@@ -114,11 +114,6 @@ int LinkedQueue<T>::GetCount() const
 
 }
 
-template <typename T>
-void LinkedQueue<T>::print() const {
-	
-}
-
 ///////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>

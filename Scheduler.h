@@ -58,7 +58,6 @@ public:
 	void simulate(); // to process each time step and make the needed transitions
 	void RandomWaiting(Patient *& P);
 	void collectStatistics(); // collect statistics when all patients finish
-	void SetTimestep(int t); 
 	int GetTWT() const;
 	int GetTotal_NPatients() const;
 	int GetTotal_RPatients() const;

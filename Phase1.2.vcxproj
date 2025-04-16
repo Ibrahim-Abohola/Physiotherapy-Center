@@ -142,6 +142,7 @@
     <ClInclude Include="EU_Queue.h" />
     <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
+    <ClInclude Include="UI2.h" />
     <ClInclude Include="UltrasoundDevice.h" />
     <ClInclude Include="Utherapy.h" />
     <ClInclude Include="Xtherapy.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Treatment.cpp" />
+    <ClCompile Include="UI2.cpp" />
     <ClCompile Include="UltrasoundDevice.cpp" />
     <ClCompile Include="Utherapy.cpp" />
     <ClCompile Include="Xtherapy.cpp" />

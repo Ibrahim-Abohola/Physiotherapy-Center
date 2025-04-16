@@ -24,4 +24,6 @@ public:
     int getMaxRoomSize() const;
 
     int getCurrentCapacity() const;
+
+    void print(ostream& os) const override;
 };

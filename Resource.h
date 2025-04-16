@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <fstream>
 using namespace std;
 #include <string>
 
@@ -19,6 +21,10 @@ public:
     void setAvailability(bool av);
 
     string getResourceType() const;
+
+    virtual void print(ostream& os) const;
+
+    friend ostream& operator<<(ostream& os, const Resource& res);
 
     virtual ~Resource() {}
 };

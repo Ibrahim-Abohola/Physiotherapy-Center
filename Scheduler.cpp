@@ -2,13 +2,22 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
-#include "UI.h"
+#include "UI2.h"
 
 Scheduler::Scheduler() :
 	TWT(0), Timestep(0), Total_NPatients(0), Total_RPatients(0), AC_Cancellations(0), AC_Rescheduling(0), AvgPenality(0),
 	AvgTT_N(0), AvgTT_R(0), AvgWT_N(0), AvgWT_R(0),Per_cancellation(0),Per_Rescheduling(0), Per_Early(0), Per_Late(0)
 { }
 
+
+int Scheduler::GetTimestep() const
+{
+	return Timestep;
+}
+int Scheduler::GetTP() const
+{
+	return TP;
+}
 
 int Scheduler::GetTotal_NPatients() const {
 	return Total_NPatients;
@@ -156,13 +165,13 @@ void Scheduler::LoadData(string in) {
 	while (n--) {
 		char type;
 		int pt,vt,nt;
-		cin >> type;
-		cin >> pt >> vt >> nt;
+		Input >> type;
+		Input >> pt >> vt >> nt;
 		Patient* P = new Patient(type, pt, vt);
 		while (nt--) {
 			int duration;
-			cin >> type;
-			cin >> duration;
+			Input >> type;
+			Input >> duration;
 			Treatment * T;
 			if (type == 'E')
 				T = new ETherapy(duration);

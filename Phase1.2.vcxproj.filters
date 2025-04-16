@@ -22,9 +22,6 @@
     <ClInclude Include="ElectrotherapyDevice.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="priQueue.h">
       <Filter>DS</Filter>
@@ -57,9 +54,6 @@
       <Filter>Classes</Filter>
     </ClCompile>
     <ClCompile Include="Scheduler.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
@@ -123,9 +117,15 @@
     <ClInclude Include="Patient.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="UI2.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Patient.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="UI2.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>

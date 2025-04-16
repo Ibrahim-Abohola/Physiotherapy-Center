@@ -10,7 +10,10 @@ bool Utherapy::canAssign(Resource* r, int currentTime)
 
 }
 
-void Utherapy::moveToWait()
+void Utherapy::moveToWait(Patient* p, Scheduler* scheduler)
 {
-    return;
+    if (p && scheduler)
+    {
+        scheduler->AddToU_Waiting(p);
+    }
 }

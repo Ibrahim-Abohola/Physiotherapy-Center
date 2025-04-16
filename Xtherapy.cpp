@@ -10,7 +10,10 @@ bool Xtherapy::canAssign(Resource * r, int currentTime)
 
 }
 
-void Xtherapy::moveToWait()
+void Xtherapy::moveToWait(Patient* p, Scheduler* scheduler)
 {
-    return;
+    if (p && scheduler)
+    {
+        scheduler->AddToX_Waiting(p);
+    }
 }
