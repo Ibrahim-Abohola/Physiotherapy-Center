@@ -8,9 +8,9 @@
 using namespace std;
 
 class UI {
-    Scheduler* scheduler;
+    Scheduler * scheduler;
 public:
-    UI(Scheduler* sched);
+    UI(Scheduler * sched);
     void OutputScreen();
     string GetInputFile();
 

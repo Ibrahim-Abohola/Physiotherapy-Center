@@ -1,9 +1,9 @@
-#include "UI.h"
+#include "UI2.h"
 #include <iostream>
 
 using namespace std;
 
-UI::UI(Scheduler* sched) {
+UI::UI(Scheduler * sched) {
     scheduler = sched;
 }
 void UI::OutputScreen() {
