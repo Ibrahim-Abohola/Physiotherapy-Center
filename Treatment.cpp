@@ -2,7 +2,8 @@
 #include "Patient.h"
 #include "Scheduler.h"
 
-Treatment::Treatment(int d) : duration(d), AssignmentTime(0){}
+Treatment::Treatment(int d) : duration(d), AssignmentTime(0),AssignedResource(NULL)
+{}
 
 void Treatment::setDuration(int du)
 {

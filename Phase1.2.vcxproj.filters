@@ -73,9 +73,6 @@
     <ClInclude Include="GymRoom.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Patient.h">
       <Filter>Classes</Filter>
     </ClInclude>
@@ -99,6 +96,9 @@
     </ClInclude>
     <ClInclude Include="Xtherapy.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>DS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
