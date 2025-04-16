@@ -1,7 +1,7 @@
 #pragma once
 #include <fstream>
 #include "ArrayStack.h"
-#include "SortedQueue.h"
+#include "EU_Queue.h"
 #include "priQueue.h"
 #include "X_Queue.h"
 #include "Early_PriQueue.h"
@@ -13,8 +13,8 @@ class Scheduler {
 	Early_priQueue<Patient*> EarlyList;
 	priQueue<Patient*> LateList;
 	X_Queue<Patient*> X_Waiting;
-	SortedQueue<Patient*> U_Waiting;
-	SortedQueue<Patient*> E_Waiting;
+	EU_Queue<Patient*> U_Waiting;
+	EU_Queue<Patient*> E_Waiting;
 	LinkedQueue<Resource*> AvailE_Devices;
 	LinkedQueue<Resource*> AvailU_Devices;
 	LinkedQueue<Resource*> AvailX_Rooms;
@@ -54,6 +54,9 @@ public:
 	void LoadData(); // to read the input file and initialize lists
 	void Cancellation(); // to handle cancellations
 	void reschedule();  // to handle rescheduling
+	void simulate(); // to process each time step and make the needed transitions
+	bool Cancellation(Patient& p); // to handle cancellations
+	bool reschedule(Patient& p);  // to handle rescheduling
 	void ProcessTimestep(); // to process each time step and make the needed transitions
 	void collectStatistics(); // collect statistics when all patients finish
 	void SetTimestep(int t); 
@@ -69,6 +72,24 @@ public:
 	double GetPer_Early() const;
 	double GetPer_Late() const;
 	double GetAvgPenality() const;
+
+	int GetTimestep() const;  //ebra added
+	int GetTP() const;		  //ebra added
+
+	LinkedQueue<Patient*>& Get_All_Patients();    //ebra added
+	Early_priQueue<Patient*>& Get_Early_List();	  //ebra added
+	priQueue<Patient*>& Get_Late_List();		  //ebra added
+	X_Queue<Patient*>& Get_X_Waiting();		      //ebra added
+	SortedQueue<Patient*>& Get_U_Waiting();		  //ebra added
+	SortedQueue<Patient*>& Get_E_Waiting();		  //ebra added
+	priQueue<Patient*>& Get_In_Treatment();		  //ebra added
+	ArrayStack<Patient*>& Get_Finish_List();	  //ebra added
+
+	LinkedQueue<Resource*>& Get_AvailE_Devices(); //ebra added
+	LinkedQueue<Resource*>& Get_AvailU_Devices(); //ebra added
+	LinkedQueue<Resource*>& Get_AvailX_Rooms();	  //ebra added
+
+
 
 
 };

@@ -14,9 +14,11 @@ class LinkedQueue :public QueueADT<T>
 {
 
 protected:
+
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 	int count;
+
 public:
 	LinkedQueue();
 	bool isEmpty() const;
@@ -24,7 +26,7 @@ public:
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
 	int GetCount() const;
-	void print() const;
+	void PrintQueue(LinkedQueue<T> Q, int f = 0);
 	~LinkedQueue();
 
 	//copy constructor
@@ -42,7 +44,6 @@ LinkedQueue<T>::LinkedQueue()
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
-
 
 template <typename T>
 bool LinkedQueue<T>::isEmpty() const
@@ -112,11 +113,6 @@ int LinkedQueue<T>::GetCount() const
 
 }
 
-template <typename T>
-void LinkedQueue<T>::print() const {
-	
-}
-
 ///////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
@@ -139,5 +135,30 @@ LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
 		NodePtr = NodePtr->getNext();
 	}
 }
+/////////////////////////////////////////////////////////////////////////////////////////
 
+template <typename T>
+void LinkedQueue<T>::PrintQueue(LinkedQueue<T> Q ,int f) //ebra was here
+{
+	//For this function to work properly, the LikedQueue class MUST
+	//have  a copy constructor (pass by value)
+	if (f == 0) {
+		T K;
+		while (Q.dequeue(K))
+		{
+			if (K)
+				cout << *K << " ";  // dereference the pointer to print the value
+		}
+		cout << endl;
+	}
+	else {
+		for (int i = 0; i < f; i++) {
+			T K;
+			if (Q.dequeue(K))
+				cout << *K << " ";
+			else
+				break;
+		}
+	}
+}
 #endif

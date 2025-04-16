@@ -19,9 +19,10 @@ class Patient {
 public:
 	Patient(char type, int pt, int vt);
 	void AddTreatment(Treatment* treatment);
-	Treatment* RemoveTreatment();
+	void RemoveTreatment(Resource*&);
 	void UpdateStatus(string s);
 	void SetFT(int t);
+	void ModifyPT(int t);
 	void UpdateWT(int t);
 	void UpdateTT(int t);
 	static int GetID();
@@ -36,4 +37,10 @@ public:
 	string GetStatus() const;
 	bool operator<=(Patient*& p);
 	bool operator>=(Patient*& p);
+	int operator!(); // overloading operator to get curr tretment duration for computing TL of wait lists
+	bool operator~(); // overloading operator to check if the curr treatment is the last treatment for the cancel function
+	friend ostream& operator<<(ostream& os, const Patient& res);
+
+
+
 };

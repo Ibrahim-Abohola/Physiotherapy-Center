@@ -12,4 +12,7 @@ public:
     bool allocate();
 
     void release();
+
+    void print(ostream& os) const override;
+
 };

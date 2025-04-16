@@ -45,7 +45,10 @@ bool ETherapy::canAssign(LinkedQueue<Resource * >& resources, int currentTime, i
     return assigned;
 }
 
-void ETherapy::moveToWait()
+void ETherapy::moveToWait(Patient* p, Scheduler* scheduler)
 {
-    return;
+    if (p && scheduler) 
+    {
+        scheduler->AddToE_Waiting(p);
+    }
 }
