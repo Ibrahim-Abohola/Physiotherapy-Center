@@ -75,9 +75,6 @@
     <ClInclude Include="ArrayStack.h">
       <Filter>DataStructures</Filter>
     </ClInclude>
-    <ClInclude Include="EU_Queue.h">
-      <Filter>DS</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Classes</Filter>
     </ClInclude>
@@ -119,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="UI2.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="EU_Queue.h">
+      <Filter>DS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

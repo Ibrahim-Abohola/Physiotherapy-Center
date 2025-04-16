@@ -18,7 +18,7 @@ public:
 		while (ptr)
 		{
 			T item = ptr->getItem();
-			TL += !item;
+			TL += !(*item);
 			ptr = ptr->getNext();
 		}
 		return TL;
