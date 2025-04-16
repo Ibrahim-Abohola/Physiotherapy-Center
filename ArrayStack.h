@@ -6,6 +6,7 @@
 #include <iostream>
 using namespace std;
 
+
  //Unless spesificed by the stack user, the default size is 100
 template<typename T>
 class ArrayStack : public StackADT<T>
@@ -73,6 +74,7 @@ public:
 
 		cout << endl;
 	}
+
 
 
 }; // end ArrayStack

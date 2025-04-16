@@ -1,5 +1,5 @@
 #include "ElectrotherapyDevice.h"
-
+#include<iostream>
 
 int E_Device::EID = 0;
 

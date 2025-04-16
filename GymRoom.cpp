@@ -1,5 +1,5 @@
 #include "GymRoom.h"
-
+#include<iostream>
 int GymRoom::RID = 0;
 
 

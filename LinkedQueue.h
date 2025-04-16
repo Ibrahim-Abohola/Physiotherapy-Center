@@ -18,7 +18,6 @@ protected:
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 	int count;
-
 public:
 	LinkedQueue();
 	bool isEmpty() const;
@@ -44,7 +43,6 @@ LinkedQueue<T>::LinkedQueue()
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
-
 
 template <typename T>
 bool LinkedQueue<T>::isEmpty() const
@@ -136,6 +134,7 @@ LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
 		NodePtr = NodePtr->getNext();
 	}
 }
+/////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
 void LinkedQueue<T>::PrintQueue(int f) //ebra was here
