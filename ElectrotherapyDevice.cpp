@@ -4,12 +4,16 @@
 int E_Device::EID = 0;
 
 
-E_Device::E_Device() : Resource("Electrotherapy", ++EID) {}
+E_Device::E_Device() : Resource("Electrotherapy") {
+    
+        EID++;
+        ID = EID;
+}
 
 
 int E_Device::getEID() const
 {
-    return EID;
+    return ID;
 }
 
 bool E_Device::allocate()
@@ -33,6 +37,6 @@ ostream& operator<<(ostream& os, const E_Device& p) {
 
 void E_Device::print(ostream& os) const
 {
-    os << EID << " ";
+    os << ID << " ";
 
 }

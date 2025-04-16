@@ -12,9 +12,10 @@ public:
 
 	}
 
-	bool Cancel2(T& P)
+	bool Cancel(bool phase1, T& P)
 	{
-		srand(time(NULL));
+		if (this->isEmpty())
+			return false;
 		int index = rand() % this->count;  // random number from 0 to count
 		Node<T>* ptr = this->frontPtr;
 		index--;
@@ -24,7 +25,7 @@ public:
 			index--;
 		}
 		T item = ptr->getItem();
-		if (~item)
+		if (phase1 || ~(*item))
 		{
 			this->count--;
 			P = item;

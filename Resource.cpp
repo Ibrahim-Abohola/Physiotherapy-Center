@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Resource::Resource(string type, bool isAvailable) : resourceType(type), isAvailable(true){}
+Resource::Resource(string type) : resourceType(type), isAvailable(true){}
 
 bool Resource::allocate()
 {
@@ -38,4 +38,11 @@ ostream& operator<<(ostream& os, const Resource& res) {
 string Resource::getResourceType() const
 {
     return resourceType;
+}
+
+ostream& operator<<(ostream& os, const Resource& res) {
+    res.print(os);
+    return os;
+}
+void Resource::print(ostream& os) const {
 }

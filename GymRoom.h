@@ -5,11 +5,12 @@
 class GymRoom : public Resource {
 private:
     static int RID;
+    int ID;
     int maxRoomSize;
     int capacity;
 
 public:
-    GymRoom();
+    
     GymRoom(int roomSize);
 
     int getRID() const;

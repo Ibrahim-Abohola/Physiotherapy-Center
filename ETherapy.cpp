@@ -1,0 +1,18 @@
+#include "ETherapy.h"
+#include "Patient.h"
+#include "Scheduler.h"
+
+ETherapy::ETherapy(int d) : Treatment(d) {}
+
+bool ETherapy::canAssign(Resource* r, int currentTime)
+{
+    return false;
+}
+
+void ETherapy::moveToWait(Patient* p, Scheduler* scheduler)
+{
+    if (p && scheduler) 
+    {
+        scheduler->AddToE_Waiting(p);
+    }
+}

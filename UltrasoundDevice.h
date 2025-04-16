@@ -4,6 +4,7 @@
 class U_Device : public Resource
 {
     static int UID;
+    int ID;
 public:
     U_Device();
 
@@ -14,6 +15,5 @@ public:
     void release();
 
     void print(ostream& os) const override;
-
 };
 

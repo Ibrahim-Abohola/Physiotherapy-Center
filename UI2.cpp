@@ -3,12 +3,12 @@
 
 using namespace std;
 
-UI::UI(Scheduler* sched){
+UI::UI(Scheduler* sched) {
     scheduler = sched;
 }
-void UI::OutputScreen(){
+void UI::OutputScreen() {
 
-    cout << "Current Timestep: " << scheduler->GetTimestep()<< "\n";
+    cout << "Current Timestep: " << scheduler->GetTimestep() << "\n";
     cout << "=============== ALL List ===============\n";
     cout << scheduler->Get_All_Patients().GetCount() << " Patients remaining: ";
     scheduler->Get_All_Patients().PrintQueue(10);
@@ -62,7 +62,7 @@ void UI::OutputScreen(){
     cout << scheduler->Get_Finish_List().GetCount() << " ==> finished patients ";
     scheduler->Get_Finish_List().PrintStack();
     cout << endl;
-    cout << "Press any key to display the next time step"<<endl;
+    cout << "Press any key to display the next time step" << endl;
     cout << endl;
     cout << "=========================================================" << endl;
 }

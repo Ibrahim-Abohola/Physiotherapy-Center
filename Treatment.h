@@ -1,8 +1,9 @@
 #pragma once
 #include"Resource.h"
 #include"LinkedQueue.h"
-#include"Patient2.h"
-#include"Scheduler.h"
+
+class Scheduler;
+class Patient;
 
 class Treatment
 {
@@ -22,9 +23,9 @@ public:
     void setResource(Resource*);
     Resource* GetResource();
 
-    virtual bool canAssign(LinkedQueue<Resource* >& resources, int currentTime, int& ID)=0;
+    virtual bool canAssign(Resource* r, int currentTime) = 0;
 
-    virtual void moveToWait(Patient* p, Scheduler* scheduler)=0;
+    virtual void moveToWait(Patient* p, Scheduler* scheduler) = 0;
 
     virtual ~Treatment() {}
 };

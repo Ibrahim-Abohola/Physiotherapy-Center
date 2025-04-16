@@ -2,13 +2,17 @@
 #include<iostream>
 int GymRoom::RID = 0;
 
-GymRoom::GymRoom() : Resource("Gym", ++RID), maxRoomSize(0), capacity(0) {}
 
-GymRoom::GymRoom(int roomSize) : Resource("Gym", RID++), maxRoomSize(roomSize), capacity(roomSize) {}
+GymRoom::GymRoom(int roomSize) : Resource("Gym"), maxRoomSize(roomSize) {
+
+    capacity =0;
+    RID++;
+    ID = RID;
+}
 
 int GymRoom::getRID() const
 {
-    return RID;
+    return ID;
 }
 
 bool GymRoom::allocate()
@@ -39,7 +43,7 @@ int GymRoom::getMaxRoomSize() const
 }
 
 void GymRoom::print(ostream& os) const {
-    os << "R" << RID << "[" << capacity << "," << maxRoomSize << "] ";
+    os << "R" << ID << "[" << capacity << "," << maxRoomSize << "] ";
 }
 int GymRoom::getCurrentCapacity() const
 {

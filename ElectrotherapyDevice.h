@@ -4,6 +4,7 @@
 class E_Device : public Resource
 {
     static int EID;
+    int ID;
 public:
     E_Device();
 

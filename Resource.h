@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <fstream>
 using namespace std;
 #include <string>
 
@@ -8,16 +10,14 @@ class Resource
     bool isAvailable;
 
 public:
-    Resource();
 
-    Resource(string type, bool isAvailable);
+    Resource(string type);
 
     virtual bool allocate();
 
     virtual void release();
 
     virtual bool checkAvailability();
-
     void setAvailability(bool av);
 
     string getResourceType() const;

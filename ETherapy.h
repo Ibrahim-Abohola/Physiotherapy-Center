@@ -1,17 +1,16 @@
 #pragma once
 #include "Treatment.h"
-#include "UltrasoundDevice.h"
-
+#include"ElectrotherapyDevice.h"
 
 class Scheduler;
 class Patient;
 
 
-class Utherapy : public Treatment
+
+class ETherapy : public Treatment
 {
 public:
-
-    Utherapy(int d);
+    ETherapy(int d);
 
     virtual bool canAssign(Resource* r, int currentTime);
 

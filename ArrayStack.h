@@ -61,18 +61,16 @@ public:
 
 	}
 
-	void print() const {
-
-	}
-	void PrintStack(const ArrayStack<T>& S)    // ebra was here
+	void PrintStack()    
 	{
-		cout << endl;
-
-		ArrayStack<T> temp = S;  // make a copy
-
-		T x;
-		while (temp.pop(x))
-			cout << *x << " ";
+		int index = 0;
+		while (index <= top)
+		{
+			T item;
+			item = items[index];
+			cout << *item<<", ";
+			index++;
+		}
 
 		cout << endl;
 	}
