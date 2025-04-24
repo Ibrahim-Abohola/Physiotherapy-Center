@@ -143,7 +143,8 @@ void Scheduler::LoadData(string in) {
 	Input.open(in);
 	int n;
 	Input >> n;
-	while (n--) {
+	while (n--)
+	{
 		Resource* newresource = new E_Device;
 		AvailE_Devices.enqueue(newresource);
 	}
@@ -208,111 +209,165 @@ void Scheduler::reschedule()
 	}
 }
 
+void Scheduler::FromAllto()
+{
+	while (!All_Patients.isEmpty())
+	{
+		Patient* P;
+		All_Patients.peek(P);
+		if (P->GetVT() == Timestep)
+		{
+			All_Patients.dequeue(P);
+			if (P->GetVT() < P->GetPT())
+				AddToEarly(P);
+			else if (P->GetVT() > P->GetPT())
+				AddToLate(P);
+			else
+			{
+				if (P->GetType() == 'N')
+					P->GetCurrentTreatment()->moveToWait(P, this);
+				else
+					HandleRPatient(P);
+			}
+
+		}
+		else
+			break;
+	}
+
+}
+
+void Scheduler::FromEarlyLateto()
+{
+	while (!EarlyList.isEmpty())
+	{
+		Patient* p;
+		int pri;
+		EarlyList.peek(p,pri);
+		if (p->GetPT() == Timestep)
+		{
+			EarlyList.dequeue(p, pri);
+			if (p->GetType() == 'N')
+				p->GetCurrentTreatment()->moveToWait(p, this);
+			else
+				HandleRPatient(p);
+		}
+		else
+			break;
+	}
+	while (!LateList.isEmpty())
+	{
+		Patient* p;
+		int pri;
+		LateList.peek(p, pri);
+		pri *= -1;
+		if (pri == Timestep)
+		{
+			LateList.dequeue(p, pri);
+			if (p->GetType() == 'N')
+				p->GetCurrentTreatment()->moveToWait(p, this);
+			else
+				HandleRPatient(p);
+		}
+		else
+			break;
+	}
+}
+
+void Scheduler::FromInTreatTo()
+{
+	while (!In_Treatment.isEmpty())
+	{
+		Patient* p;
+		int pri;
+		In_Treatment.peek(p, pri);
+		pri *= -1;
+		if (pri == Timestep)
+		{
+			In_Treatment.dequeue(p, pri);
+			p->UpdateTT(p->GetCurrentTreatment()->getDuration());
+			Resource* r;
+			p->RemoveTreatment(r);
+			if (r->getResourceType() == "E_Device")
+				AvailE_Devices.enqueue(r);
+			else if (r->getResourceType() == "U_Device")
+				AvailU_Devices.enqueue(r);
+			else if (r->getResourceType() == "GymRoom")
+			{
+				if (!r->checkAvailability())
+					AvailX_Rooms.enqueue(r);
+			}
+			r->release();
+			if (!p->GetCurrentTreatment())
+			{
+				AddToFinishLIst(p);
+			}
+			else
+			{
+				if (p->GetType() == 'N')
+					p->GetCurrentTreatment()->moveToWait(p, this);
+				else
+					HandleRPatient(p);
+			}
+		}
+		else
+			break;
+	}
+}
+
+
+void Scheduler::HandleRPatient(Patient * p)
+{
+	priQueue<char> temp;
+	temp.enqueue('X', -X_Waiting.CalcTreatmentLatency());
+	temp.enqueue('E', -E_Waiting.CalcTreatmentLatency());
+	temp.enqueue('U', -U_Waiting.CalcTreatmentLatency());
+	int pri;
+	char best;
+	temp.dequeue(best, pri);
+	int count = 1;
+	while (count)
+	{
+		Treatment* t = p->GetCurrentTreatment();
+		if (t->GetType() == best)
+			break;
+		else
+		{
+			if (count < 3)
+				count++;
+			else {
+				temp.dequeue(best, pri);
+				count = 1;
+			}
+			Resource* r;
+			p->RemoveTreatment(r);
+			p->AddTreatment(t);
+		}
+	}
+	p->GetCurrentTreatment()->moveToWait(p, this);
+}
+
 void Scheduler::simulate(){
 
 	UI ui(this);
 	string in = ui.GetInputFile();
 	this->LoadData(in);
+
 	do {
 
-		while (!All_Patients.isEmpty())
-		{
-			Patient * P;
-			All_Patients.peek(P);
-			if (P->GetVT() == Timestep)
-			{
-				All_Patients.dequeue(P);
-				if (P->GetVT() < P->GetPT())
-					AddToEarly(P);
-				else if (P->GetVT() > P->GetPT())
-					AddToLate(P);
-				else
-					RandomWaiting(P);
-			}
-			else
-				break;
-		}
+		this->FromAllto();
+		this->FromEarlyLateto();
+		///
+		///
+		this->FromInTreatTo();
 
-		int X = rand() % 80;
-		Patient* p = NULL;
-		int tem = 0;
 
-		if (X < 10)
-		{
-
-			EarlyList.dequeue(p,tem);
-			if(p)
-				this->RandomWaiting(p);
-		}
-		if (X >= 10 && X < 20) {
-
-			LateList.dequeue(p,tem);
-			if(p)
-				this->RandomWaiting(p);
-		}
-		if (X >= 20 && X < 40) {
-			for (int i = 0; i < 2; i++) {
-				int N = rand() % 100;
-				if (N < 33) {
-					E_Waiting.dequeue(p);
-				}
-				else if (N >= 33 && N < 66) {
-					U_Waiting.dequeue(p);
-				}
-				else if (N >= 66) {
-					X_Waiting.dequeue(p);
-				}
-				if(p)
-					AddToIn_Treatment(p);
-				p = NULL;
-			}
-		}
-		if (X >= 40 && X < 50) 
-		{
-
-			In_Treatment.dequeue(p, tem);
-			if(p)
-				this->RandomWaiting(p);
-		}
-		if (X >= 50 && X < 60)
-		{
-			In_Treatment.dequeue(p, tem);
-			if (p)
-				AddToFinishLIst(p);
-		}
-		if (X >= 60 && X < 70) 
-		{
-			this->Cancellation();
-		}
-		if (X >= 70 && X < 80) 
-		{
-			this->reschedule();
-		}
-
-		cin.get();//buffer  wating till press enter key 
+		cin.get();
 		ui.OutputScreen();
-
-		//getline(cin,in);
 		Timestep++;
 
 	} while (FinishList.GetCount() != TP);
 
-}
-
-
-void Scheduler::RandomWaiting(Patient *& p)
-{
-
-	int N = rand() % 100;
-	if (N < 33) {
-		AddToE_Waiting(p);
-	}
-	if (N >= 33 && N < 66) {
-		AddToU_Waiting(p);
-	}
-	if (N >= 66) {
-		AddToX_Waiting(p);
-	}
 }
 
 

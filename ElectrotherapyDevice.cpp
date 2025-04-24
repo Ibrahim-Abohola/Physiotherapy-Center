@@ -4,7 +4,7 @@
 int E_Device::EID = 0;
 
 
-E_Device::E_Device() : Resource("Electrotherapy") {
+E_Device::E_Device() : Resource("E_Device") {
     
         EID++;
         ID = EID;

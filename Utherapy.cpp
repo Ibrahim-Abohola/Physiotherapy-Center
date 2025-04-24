@@ -17,3 +17,8 @@ void Utherapy::moveToWait(Patient* p, Scheduler* scheduler)
         scheduler->AddToU_Waiting(p);
     }
 }
+
+char Utherapy::GetType()
+{
+	return 'U';
+}

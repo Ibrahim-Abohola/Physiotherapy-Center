@@ -2,7 +2,7 @@
 
 int U_Device::UID = 0;
 
-U_Device::U_Device() : Resource("Ultrasound") {
+U_Device::U_Device() : Resource("U_Device") {
 
     UID++;
     ID = UID;

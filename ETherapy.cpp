@@ -16,3 +16,8 @@ void ETherapy::moveToWait(Patient* p, Scheduler* scheduler)
         scheduler->AddToE_Waiting(p);
     }
 }
+
+char ETherapy::GetType()
+{
+	return 'E';
+}

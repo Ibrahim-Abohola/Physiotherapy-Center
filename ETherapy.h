@@ -16,5 +16,7 @@ public:
 
     virtual void moveToWait(Patient* p, Scheduler* scheduler);
 
+	virtual char GetType();
+
 };
 

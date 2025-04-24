@@ -17,3 +17,7 @@ void Xtherapy::moveToWait(Patient* p, Scheduler* scheduler)
         scheduler->AddToX_Waiting(p);
     }
 }
+char Xtherapy::GetType()
+{
+	return 'X';
+}

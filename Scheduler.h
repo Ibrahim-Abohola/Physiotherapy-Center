@@ -52,11 +52,14 @@ public:
 	void AddToX_Room(Resource*& resource);
 	void AddToIn_Treatment(Patient*& p);
 	void AddToFinishLIst(Patient*& p);
+	void FromAllto();
+	void FromEarlyLateto();
+	void HandleRPatient(Patient *);
+	void FromInTreatTo();
 	void LoadData(string in); // to read the input file and initialize lists
 	void Cancellation(); // to handle cancellations
 	void reschedule();  // to handle rescheduling
 	void simulate(); // to process each time step and make the needed transitions
-	void RandomWaiting(Patient *& P);
 	void collectStatistics(); // collect statistics when all patients finish
 	int GetTWT() const;
 	int GetTotal_NPatients() const;
@@ -82,12 +85,10 @@ public:
 	EU_Queue<Patient*>& Get_E_Waiting();		  //ebra added
 	priQueue<Patient*>& Get_In_Treatment();		  //ebra added
 	ArrayStack<Patient*>& Get_Finish_List();	  //ebra added
-
+     
 	LinkedQueue<Resource*>& Get_AvailE_Devices(); //ebra added
 	LinkedQueue<Resource*>& Get_AvailU_Devices(); //ebra added
 	LinkedQueue<Resource*>& Get_AvailX_Rooms();	  //ebra added
-
-
 
 
 };

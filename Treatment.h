@@ -9,11 +9,10 @@ class Treatment
 {
 
     int duration;
-    
 protected:
     int AssignmentTime;
     Resource* AssignedResource;
-
+    string type;
 public:
     Treatment(int d);
     void setDuration(int du);
@@ -22,6 +21,8 @@ public:
     int getAssignmentTime();
     void setResource(Resource*);
     Resource* GetResource();
+
+    virtual char GetType() = 0;
 
     virtual bool canAssign(Resource* r, int currentTime) = 0;
 
