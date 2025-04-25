@@ -6,6 +6,11 @@ ETherapy::ETherapy(int d) : Treatment(d) {}
 
 bool ETherapy::canAssign(Resource* r, int currentTime)
 {
+    if (r==AssignedResource && r->allocate())
+    {
+        setAssignmentTime(currentTime);
+        return true;
+    }
     return false;
 }
 

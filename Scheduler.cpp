@@ -51,6 +51,99 @@ double Scheduler::GetAvgPenality() const {
 	return AvgPenality;
 }
 
+void Scheduler::AssignE(int currentTime)
+{
+	Resource* r;
+	while (!AvailE_Devices.isEmpty() && !E_Waiting.isEmpty())
+	{
+		Patient* p;
+		E_Waiting.dequeue(p);
+		Treatment* t = p->GetCurrentTreatment();
+
+		ETherapy* et = dynamic_cast<ETherapy*>(t);
+		if (et)
+		{
+			AvailE_Devices.dequeue(r);
+			if (et->canAssign(r, currentTime))  
+			{
+				et->setResource(r);                 
+				AddToIn_Treatment(p);
+			}
+			else
+			{
+				AvailE_Devices.enqueue(r);
+				E_Waiting.InsertSorted(p);
+			}
+		}
+		else
+		{
+			E_Waiting.InsertSorted(p);
+		}
+	}
+}
+void Scheduler::AssignU(int currentTime)
+{
+	Resource* r;
+	while (!AvailU_Devices.isEmpty() && !U_Waiting.isEmpty())
+	{
+		Patient* p;
+		U_Waiting.dequeue(p);
+		Treatment* t = p->GetCurrentTreatment();
+
+		Utherapy* ut = dynamic_cast<Utherapy*>(t);
+		if (ut)
+		{
+			AvailU_Devices.dequeue(r);
+			if (ut->canAssign(r, currentTime))
+			{
+				ut->setResource(r);
+				AddToIn_Treatment(p);
+			}
+			else
+			{
+				AvailU_Devices.enqueue(r);
+				U_Waiting.InsertSorted(p);
+			}
+		}
+		else
+		{
+			U_Waiting.InsertSorted(p);
+		}
+	}
+}
+
+void Scheduler::AssignX(int currentTime)
+{
+	Resource* r;
+	while (!AvailX_Rooms.isEmpty() && !X_Waiting.isEmpty())
+	{
+		Patient* p;
+		X_Waiting.dequeue(p);
+		Treatment* t = p->GetCurrentTreatment();
+
+		Xtherapy* xt = dynamic_cast<Xtherapy*>(t);
+		if (xt)
+		{
+			AvailX_Rooms.dequeue(r);
+			if (xt->canAssign(r, currentTime))
+			{
+				xt->setResource(r);
+				AddToIn_Treatment(p);
+			}
+			else
+			{
+				AvailX_Rooms.enqueue(r);
+				X_Waiting.InsertSorted(p);
+			}
+		}
+		else
+		{
+			X_Waiting.InsertSorted(p);
+		}
+	}
+}
+
+
 double Scheduler::GetPer_cancellation() const {
 	return Per_cancellation;
 }

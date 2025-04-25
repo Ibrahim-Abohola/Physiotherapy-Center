@@ -6,8 +6,18 @@ Xtherapy::Xtherapy(int d) : Treatment(d) {}
 
 bool Xtherapy::canAssign(Resource * r, int currentTime)
 {
-    return false;
+    if (r != AssignedResource)
+    {
+        return false;
+    }
+    GymRoom* g = dynamic_cast<GymRoom*>(r);
 
+    if (g->allocate())
+    {
+        setAssignmentTime(currentTime);
+        return true;
+    }
+    return false;
 }
 
 void Xtherapy::moveToWait(Patient* p, Scheduler* scheduler)

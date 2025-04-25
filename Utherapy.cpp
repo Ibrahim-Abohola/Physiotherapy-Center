@@ -6,9 +6,14 @@ Utherapy::Utherapy(int d) : Treatment(d) {}
 
 bool Utherapy::canAssign(Resource* r, int currentTime)
 {
+    if (r == AssignedResource && r->allocate())
+    {
+		setAssignmentTime(currentTime);
+        return true;
+    }
     return false;
-
 }
+
 
 void Utherapy::moveToWait(Patient* p, Scheduler* scheduler)
 {

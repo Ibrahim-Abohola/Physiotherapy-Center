@@ -6,13 +6,17 @@ Resource::Resource(string type) : resourceType(type), isAvailable(true){}
 
 bool Resource::allocate()
 {
-    cout << "something went wrong! you are in class Resource itself";
+    if (checkAvailability()) 
+    {
+        setAvailability(false);
+        return true;
+    }
     return false;
 }
 
 void Resource::release()
 {
-    cout << "something went wrong! you are in class Resource itself";
+    setAvailability(true);
 }
 
 

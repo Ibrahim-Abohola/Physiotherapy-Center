@@ -74,6 +74,12 @@ public:
 	double GetPer_Late() const;
 	double GetAvgPenality() const;
 
+	void AssignE(int currentTime); //Mego added
+
+	void AssignU(int currentTime); //Mego added
+
+	void AssignX(int currentTime); //Mego added
+
 	int GetTimestep() const;  //ebra added
 	int GetTP() const;		  //ebra added
 

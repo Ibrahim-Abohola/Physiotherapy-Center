@@ -10,10 +10,6 @@ public:
 
     int getEID() const;
 
-    bool allocate();
-
-    void release();
-
     void print(ostream& os) const override;
 
 };

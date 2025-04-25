@@ -31,10 +31,12 @@ int Treatment::getAssignmentTime()
 	return AssignmentTime;
 }
 
-void Treatment::setResource(Resource* r) {
+void Treatment::setResource(Resource* r) 
+{
 	AssignedResource = r;
 }
 
-Resource * Treatment::GetResource() {
+Resource * Treatment::GetResource() 
+{
 	return AssignedResource;
 }
