@@ -11,7 +11,7 @@ public:
 	
 		if (this->isEmpty())
 			return false;
-
+	
 		int index = rand() % this->count;  // random number from 0 to count
 		priNode<T>* ptr = this->head;
 		index--;
@@ -20,11 +20,15 @@ public:
 			ptr = ptr->getNext();
 			index--;
 		}
-		this->count--;
 
 		int pri;
 		P = ptr->getItem(pri);
 
+		bool rescheduled = &(*P);
+		if (rescheduled)
+			return false;
+
+		this->count--;
 		if (ptr == this->head)
 		{
 			this->head = this->head->getNext();

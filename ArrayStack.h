@@ -61,15 +61,17 @@ public:
 
 	}
 
-	void PrintStack()    
+	void PrintStack()
 	{
-		int index = 0;
-		while (index <= top)
+		int index = top;
+		while (index >= 0)
 		{
 			T item;
 			item = items[index];
-			cout << *item<<", ";
-			index++;
+			cout << *item;
+			if (!(index == 0))
+				cout << ", ";
+			index--;
 		}
 
 		cout << endl;

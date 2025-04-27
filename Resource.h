@@ -8,6 +8,8 @@ class Resource
 {
     string resourceType;
     bool isAvailable;
+protected:
+    int ID;
 
 public:
 
@@ -18,11 +20,14 @@ public:
     virtual void release();
 
     virtual bool checkAvailability();
-    void setAvailability(bool av);
+
+	virtual bool IsFull();
 
     string getResourceType() const;
 
     virtual void print(ostream& os) const;
+
+    int getID() const;
 
     friend ostream& operator<<(ostream& os, const Resource& res);
 

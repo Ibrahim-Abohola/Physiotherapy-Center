@@ -12,7 +12,7 @@ public:
 
 	}
 
-	bool Cancel(bool phase1, T& P)
+	bool Cancel(T& P)
 	{
 		if (this->isEmpty())
 			return false;
@@ -25,7 +25,7 @@ public:
 			index--;
 		}
 		T item = ptr->getItem();
-		if (phase1 || ~(*item))
+		if (~(*item))
 		{
 			this->count--;
 			P = item;

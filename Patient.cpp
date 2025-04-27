@@ -10,6 +10,9 @@ Patient::Patient(char type, int pt, int vt) :
 	WT = 0;
 	FT = 0;
 	TT = 0;
+	isCanceled = false;
+	isRscheduled = false;
+
 	UpdateStatus("IDLE");
 	if (PT < VT) {
 		Penality = (VT - PT) / 2;
@@ -33,13 +36,12 @@ void Patient::RemoveTreatment(Resource*& r)
 	Treatment* treatment;
 	TreatmentList.dequeue(treatment);
 	r = treatment->GetResource();
-	delete treatment;
-	treatment = NULL;
+	
 }
 
-void Patient::UpdateWT(int t) {
+void Patient::SetWT(int t) {
 	if (t > 0)
-		WT += t;
+		WT = t;
 }
 
 void Patient::UpdateTT(int t) {
@@ -94,8 +96,8 @@ string Patient::GetStatus() const {
 	return Status;
 }
 
-Treatment* Patient::GetCurrentTreatment() {
-	Treatment* curr;
+Treatment* Patient::GetCurrentTreatment() const {
+	Treatment* curr = nullptr;
 	TreatmentList.peek(curr);
 	if (curr)
 		return curr;
@@ -118,6 +120,10 @@ int Patient::operator!() {
 	return (t->getDuration());
 }
 
+bool Patient::operator&() {
+	return isRscheduled;
+}
+
 bool Patient::operator~()
 {
 	return (TreatmentList.GetCount() == 1);
@@ -125,10 +131,29 @@ bool Patient::operator~()
 ostream& operator<<(ostream& os, const Patient& p) {
 	if (p.GetStatus() == "IDLE")
 		os << "P" << p.GetID() << "_" << p.GetVT() << ",";
-	else if (p.GetStatus() == "SERV")
-		os << "P" << p.GetID() <<"_" << "E1,";
+	else if (p.GetStatus() == "SERV") {
+		string s = p.GetCurrentTreatment()->GetResource()->getResourceType() + to_string(p.GetCurrentTreatment()->GetResource()->getID()) + ", ";
+		os << "P" << p.GetID() << "_" << s;
+	}
 	else
 		os << p.GetID();
 
 	return os;
+}
+
+bool Patient::GetisCanceled()
+{
+	return isCanceled;
+}
+bool Patient::GetisRscheduled()
+{
+	return isRscheduled;
+}
+void Patient::SetisCanceled()
+{
+	isCanceled = true;
+}
+void Patient::SetisRscheduled()
+{
+	isRscheduled = true;
 }

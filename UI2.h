@@ -13,6 +13,7 @@ public:
     UI(Scheduler * sched);
     void OutputScreen();
     string GetInputFile();
-
+    string GetOutputFile();
+    void OutToFile();
 
 };

@@ -4,32 +4,13 @@
 int E_Device::EID = 0;
 
 
-E_Device::E_Device() : Resource("E_Device") {
+E_Device::E_Device() : Resource("E") {
     
         EID++;
         ID = EID;
 }
 
 
-int E_Device::getEID() const
-{
-    return ID;
-}
-
-bool E_Device::allocate()
-{
-    if (checkAvailability())
-    {
-        setAvailability(false);
-        return true;
-    }
-    return false;
-}
-
-void E_Device::release()
-{
-    setAvailability(true);
-}
 
 ostream& operator<<(ostream& os, const E_Device& p) {
     return os;

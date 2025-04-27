@@ -104,6 +104,8 @@
   <ItemGroup>
     <Text Include="in.txt" />
     <Text Include="input.txt" />
+    <Text Include="out.txt" />
+    <Text Include="output.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DS">

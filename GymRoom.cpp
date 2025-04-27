@@ -3,17 +3,13 @@
 int GymRoom::RID = 0;
 
 
-GymRoom::GymRoom(int roomSize) : Resource("GymRoom"), maxRoomSize(roomSize) {
+GymRoom::GymRoom(int roomSize) : Resource("R"), maxRoomSize(roomSize) {
 
     capacity =0;
     RID++;
     ID = RID;
 }
 
-int GymRoom::getRID() const
-{
-    return ID;
-}
 
 bool GymRoom::allocate()
 {
@@ -35,6 +31,10 @@ void GymRoom::release()
 bool GymRoom::checkAvailability() const
 {
     return capacity < maxRoomSize;
+}
+
+bool GymRoom::IsFull() {
+	return capacity == maxRoomSize;
 }
 
 int GymRoom::getMaxRoomSize() const

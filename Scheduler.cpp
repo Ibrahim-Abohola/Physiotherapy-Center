@@ -5,10 +5,10 @@
 #include "UI2.h"
 
 Scheduler::Scheduler() :
-	TWT(0), Timestep(0), Total_NPatients(0), Total_RPatients(0), AC_Cancellations(0), AC_Rescheduling(0), AvgPenality(0),
-	AvgTT_N(0), AvgTT_R(0), AvgWT_N(0), AvgWT_R(0),Per_cancellation(0),Per_Rescheduling(0), Per_Early(0), Per_Late(0)
-{ }
-
+	TWT(0), Timestep(0), Total_NPatients(0), Total_RPatients(0), AC_Cancellations(0), AC_Rescheduling(0),
+	TTT_N(0), TTT_R(0), TWT_N(0), TWT_R(0), Late_Patients(0), Early_Patients(0), TTT(0), Total_Penality(0), Penality_Patients(0)
+{
+}
 
 int Scheduler::GetTimestep() const
 {
@@ -31,42 +31,62 @@ int Scheduler::GetTWT() const {
 	return TWT;
 }
 
+int Scheduler::GetTTT() const
+{
+	return TTT;
+}
+
+void Scheduler::SetTTT(int t)
+{
+	TTT = t;
+}
+
 
 double Scheduler::GetAvgTT_N() const {
-	return AvgTT_N;
+	return (double)TTT_N / Total_NPatients;
+}
+
+double Scheduler::GetAvgTWT() const
+{
+	return (double)TWT / TP;
+}
+
+double Scheduler::GetAvgTTT() const
+{
+	return (double)TTT / TP;
 }
 
 double Scheduler::GetAvgTT_R() const {
-	return AvgTT_R;
+	return (double)TTT_R / Total_RPatients;
 }
 
 double Scheduler::GetAvgWT_R() const {
-	return AvgWT_R;
+	return (double)TWT_R / Total_RPatients;
 }
 double Scheduler::GetAvgWT_N() const {
-	return AvgWT_N;
+	return (double)TWT_N / Total_NPatients;
 }
 
 double Scheduler::GetAvgPenality() const {
-	return AvgPenality;
+	return (double)Total_Penality / Penality_Patients;
 }
 
 double Scheduler::GetPer_cancellation() const {
-	return Per_cancellation;
+	return (double)AC_Cancellations / TP * 100;
 }
 
 double Scheduler::GetPer_rescheduling() const {
-	return Per_Rescheduling;
+	return (double)AC_Rescheduling / TP * 100;
 }
 
-
 double Scheduler::GetPer_Early() const {
-	return Per_Early;
+	return (double)Early_Patients / TP * 100;
 }
 
 double Scheduler::GetPer_Late() const {
-	return Per_Late;
+	return (double)Late_Patients / TP * 100;
 }
+
 
 void Scheduler::AddPatient(Patient*& p) {
 	All_Patients.enqueue(p);
@@ -134,6 +154,30 @@ void Scheduler::AddToIn_Treatment(Patient*& p) {
 
 void Scheduler::AddToFinishLIst(Patient*& p) {
 	p->UpdateStatus("FNSH");
+	p->SetFT(Timestep);
+	p->SetWT(p->GetFT() - p->GetVT() - p->GetTT());
+	TWT += p->GetWT();
+	TTT += p->GetTT();
+
+	if(p->GetPT() < p->GetVT())
+		Late_Patients++;
+	else
+		Early_Patients++;
+	if (p->GetType() == 'R') {
+		Total_NPatients++;
+		TWT_R += p->GetWT();
+		TTT_R += p->GetTT();
+	}
+
+	if (p->GetType() == 'N') {
+		Total_RPatients++;
+		TWT_N += p->GetWT();
+		TTT_N += p->GetTT();
+	}
+	if(p->GetPenality() > 0){
+	Penality_Patients++;
+	Total_Penality += p->GetPenality();
+	}
 	FinishList.push(p);
 }
 
@@ -194,8 +238,11 @@ void Scheduler::LoadData(string in) {
 void Scheduler::Cancellation() 
 {
 	Patient* P;
-	if (X_Waiting.Cancel(true,P))
+	if (X_Waiting.Cancel(P)) {
+		P->SetisCanceled();
+		AC_Cancellations++;
 		AddToFinishLIst(P);
+	}
 }
 
 void Scheduler::reschedule()
@@ -203,7 +250,9 @@ void Scheduler::reschedule()
 	Patient* P;
 	if (EarlyList.Reschedule(P))
 	{
-		int newPT = rand() % (P->GetPT() / 2) + P->GetPT() + 1;
+		P->SetisRscheduled();
+		AC_Rescheduling++;
+		int newPT = rand() % (P->GetPT() / 2 + 1) + P->GetPT() + 1;
 		P->ModifyPT(newPT);
 		AddToEarly(P);
 	}
@@ -211,107 +260,96 @@ void Scheduler::reschedule()
 
 void Scheduler::FromAllto()
 {
-	while (!All_Patients.isEmpty())
+	Patient* P;
+	All_Patients.peek(P);
+	while (!All_Patients.isEmpty() && P->GetVT() == Timestep )
 	{
-		Patient* P;
-		All_Patients.peek(P);
-		if (P->GetVT() == Timestep)
-		{
-			All_Patients.dequeue(P);
-			if (P->GetVT() < P->GetPT())
-				AddToEarly(P);
-			else if (P->GetVT() > P->GetPT())
-				AddToLate(P);
-			else
-			{
-				if (P->GetType() == 'N')
-					P->GetCurrentTreatment()->moveToWait(P, this);
-				else
-					HandleRPatient(P);
-			}
-
-		}
+		
+		All_Patients.dequeue(P);
+		if (P->GetVT() < P->GetPT())
+			AddToEarly(P);
+		else if (P->GetVT() > P->GetPT())
+			AddToLate(P);
 		else
-			break;
+		{
+			if (P->GetType() == 'N')
+				P->GetCurrentTreatment()->moveToWait(P, this);
+			else
+				HandleRPatient(P);
+		}
+
+		All_Patients.peek(P);
 	}
 
 }
 
 void Scheduler::FromEarlyLateto()
 {
-	while (!EarlyList.isEmpty())
+	int presc = rand() % 100 + 1;
+	if (presc < pResch)  // i need to add a check so that each patient is rescheduled only once
+		reschedule();
+	Patient* p;
+	int pri;
+	EarlyList.peek(p, pri);
+	while (!EarlyList.isEmpty() && p->GetPT() == Timestep)
 	{
-		Patient* p;
-		int pri;
-		EarlyList.peek(p,pri);
-		if (p->GetPT() == Timestep)
-		{
-			EarlyList.dequeue(p, pri);
-			if (p->GetType() == 'N')
-				p->GetCurrentTreatment()->moveToWait(p, this);
-			else
-				HandleRPatient(p);
-		}
+		EarlyList.dequeue(p, pri);
+		if (p->GetType() == 'N')
+			p->GetCurrentTreatment()->moveToWait(p, this);
 		else
-			break;
+			HandleRPatient(p);
+		EarlyList.peek(p, pri);
 	}
-	while (!LateList.isEmpty())
+	////////////////////////////////////////////////////////////////////
+	LateList.peek(p, pri);
+	pri *= -1;
+	while (!LateList.isEmpty() && pri == Timestep)
 	{
-		Patient* p;
-		int pri;
+		LateList.dequeue(p, pri);
+		if (p->GetType() == 'N')
+			p->GetCurrentTreatment()->moveToWait(p, this);
+		else
+			HandleRPatient(p);
 		LateList.peek(p, pri);
 		pri *= -1;
-		if (pri == Timestep)
-		{
-			LateList.dequeue(p, pri);
-			if (p->GetType() == 'N')
-				p->GetCurrentTreatment()->moveToWait(p, this);
-			else
-				HandleRPatient(p);
-		}
-		else
-			break;
 	}
 }
 
 void Scheduler::FromInTreatTo()
 {
-	while (!In_Treatment.isEmpty())
+	Patient* p;
+	int pri;
+	In_Treatment.peek(p, pri);
+	pri *= -1;
+	while (!In_Treatment.isEmpty() && pri == Timestep)
 	{
-		Patient* p;
-		int pri;
-		In_Treatment.peek(p, pri);
-		pri *= -1;
-		if (pri == Timestep)
+		In_Treatment.dequeue(p, pri);
+		p->UpdateTT(p->GetCurrentTreatment()->getDuration());
+		Resource* r;
+		p->RemoveTreatment(r);
+		if (r->getResourceType() == "E")
+			AvailE_Devices.enqueue(r);
+		else if (r->getResourceType() == "U")
+			AvailU_Devices.enqueue(r);
+		else if (r->getResourceType() == "R")
 		{
-			In_Treatment.dequeue(p, pri);
-			p->UpdateTT(p->GetCurrentTreatment()->getDuration());
-			Resource* r;
-			p->RemoveTreatment(r);
-			if (r->getResourceType() == "E_Device")
-				AvailE_Devices.enqueue(r);
-			else if (r->getResourceType() == "U_Device")
-				AvailU_Devices.enqueue(r);
-			else if (r->getResourceType() == "GymRoom")
-			{
-				if (!r->checkAvailability())
-					AvailX_Rooms.enqueue(r);
-			}
-			r->release();
-			if (!p->GetCurrentTreatment())
-			{
-				AddToFinishLIst(p);
-			}
-			else
-			{
-				if (p->GetType() == 'N')
-					p->GetCurrentTreatment()->moveToWait(p, this);
-				else
-					HandleRPatient(p);
-			}
+			if (r->IsFull())
+				AvailX_Rooms.enqueue(r);
+		}
+		r->release();
+		if (!p->GetCurrentTreatment())
+		{
+			AddToFinishLIst(p);
 		}
 		else
-			break;
+		{
+			if (p->GetType() == 'N')
+				p->GetCurrentTreatment()->moveToWait(p, this);
+			else
+				HandleRPatient(p);
+		}
+		In_Treatment.peek(p, pri);
+		pri *= -1;
 	}
 }
 
@@ -319,9 +357,9 @@ void Scheduler::FromInTreatTo()
 void Scheduler::HandleRPatient(Patient * p)
 {
 	priQueue<char> temp;
-	temp.enqueue('X', -X_Waiting.CalcTreatmentLatency());
 	temp.enqueue('E', -E_Waiting.CalcTreatmentLatency());
 	temp.enqueue('U', -U_Waiting.CalcTreatmentLatency());
+	temp.enqueue('X', -X_Waiting.CalcTreatmentLatency());
 	int pri;
 	char best;
 	temp.dequeue(best, pri);
@@ -339,12 +377,60 @@ void Scheduler::HandleRPatient(Patient * p)
 				temp.dequeue(best, pri);
 				count = 1;
 			}
-			Resource* r;
+			Resource * r;
 			p->RemoveTreatment(r);
 			p->AddTreatment(t);
 		}
 	}
 	p->GetCurrentTreatment()->moveToWait(p, this);
+}
+
+void Scheduler::AssignE()
+{
+	Resource* r;
+	while (!AvailE_Devices.isEmpty() && !E_Waiting.isEmpty())
+	{
+		Patient* p;
+		E_Waiting.dequeue(p);
+		AvailE_Devices.dequeue(r);
+		if (p->GetCurrentTreatment()->canAssign(r, Timestep)){
+			AddToIn_Treatment(p);
+		 }	
+	}
+}
+void Scheduler::AssignU()
+{
+	Resource* r;
+	while (!AvailU_Devices.isEmpty() && !U_Waiting.isEmpty())
+	{
+		Patient* p;
+		U_Waiting.dequeue(p);
+		AvailU_Devices.dequeue(r);
+		if (p->GetCurrentTreatment()->canAssign(r, Timestep)) {
+			AddToIn_Treatment(p);
+		}
+	}
+}
+
+void Scheduler::AssignX()
+{
+	int pcancellation = rand() % 100 + 1;
+	if (pcancellation < pCancel)
+		Cancellation();
+	Resource* r;
+	while (!AvailX_Rooms.isEmpty() && !X_Waiting.isEmpty())
+	{
+		Patient* p;
+		X_Waiting.dequeue(p);
+		AvailX_Rooms.peek(r);
+		if (p->GetCurrentTreatment()->canAssign(r, Timestep)) {
+			AddToIn_Treatment(p);
+
+			if (r->IsFull())
+				AvailX_Rooms.dequeue(r);
+		}
+
+	}
 }
 
 void Scheduler::simulate(){
@@ -354,28 +440,20 @@ void Scheduler::simulate(){
 	this->LoadData(in);
 
 	do {
-
 		this->FromAllto();
 		this->FromEarlyLateto();
-		///
-		///
+		AssignE();
+		AssignU();
+		AssignX();
 		this->FromInTreatTo();
-
-
-		cin.get();
-		ui.OutputScreen();
+		ui.OutputScreen(); 
 		Timestep++;
+		cin.get();
 
 	} while (FinishList.GetCount() != TP);
 
+	ui.OutToFile();
 }
-
-
-void Scheduler::collectStatistics() 
-{
-
-}
-
 
 // ======================= Patient Queues =======================
 

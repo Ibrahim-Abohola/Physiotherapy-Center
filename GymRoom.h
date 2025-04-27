@@ -5,7 +5,6 @@
 class GymRoom : public Resource {
 private:
     static int RID;
-    int ID;
     int maxRoomSize;
     int capacity;
 
@@ -13,13 +12,14 @@ public:
     
     GymRoom(int roomSize);
 
-    int getRID() const;
 
     bool allocate();
 
     void release();
 
-    bool checkAvailability() const;
+    virtual bool checkAvailability() const;
+    
+    virtual bool IsFull() override;
 
     int getMaxRoomSize() const;
 

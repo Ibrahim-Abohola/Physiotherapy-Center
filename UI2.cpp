@@ -1,5 +1,6 @@
 #include "UI2.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -74,4 +75,71 @@ string UI::GetInputFile()
     cin >> in;
     in += ".txt";
     return in;
+}
+
+string UI::GetOutputFile()
+{
+    cout << "Enter the name of the output file" << endl;
+    string out;
+    cin >> out;
+    out += ".txt";
+    return out;
+}
+void UI::OutToFile()
+{
+    string out = GetOutputFile();
+    ofstream Output;
+    Output.open(out);
+    Output << left  // align text to the left
+        << setw(5) << "PID"
+        << setw(8) << "PType"
+        << setw(5) << "PT"
+        << setw(5) << "VT"
+        << setw(5) << "FT"
+        << setw(5) << "WT"
+        << setw(5) << "TT"
+        << setw(8) << "Cancel"
+        << setw(5) << "Resc" << '\n';
+    int co = scheduler->Get_Finish_List().GetCount();
+    for (int i = 0; i < co; i++) {
+        Patient* patient = NULL;
+        scheduler->Get_Finish_List().pop(patient);
+
+        Output << left
+            << setw(7) << ("P" + to_string(patient->GetID()))
+            << setw(6) << patient->GetType()
+            << setw(5) << patient->GetPT()
+            << setw(5) << patient->GetVT()
+            << setw(5) << patient->GetFT()
+            << setw(5) << patient->GetWT()
+            << setw(7) << patient->GetTT()
+            << setw(8) << (patient->GetisCanceled() ? "T" : "F")
+            << (patient->GetisRscheduled() ? "T\n" : "F\n");
+    }
+
+    Output << "\nTotal number of timesteps = " << scheduler->GetTimestep() << "\n";
+
+    Output << "Total number of all, N, and R patients = "
+        << scheduler->GetTP() << ", "
+        << scheduler->GetTotal_NPatients() << ", "
+        << scheduler->GetTotal_RPatients() << "\n";
+
+    Output << "Average total waiting time for all, N, and R patients = "
+        << scheduler->GetAvgTWT() << ", "
+        << scheduler->GetAvgWT_N() << ", "
+        << scheduler->GetAvgWT_R() << "\n";
+
+    Output << "Average total treatment time for all, N, and R patients = "
+        << scheduler->GetAvgTTT() << ", "
+        << scheduler->GetAvgTT_N() << ", "
+        << scheduler->GetAvgTT_R() << "\n";
+
+    Output << "Percentage of patients of an accepted cancellation (%) = " << scheduler->GetPer_cancellation() << " %\n";
+    Output << "Percentage of patients of an accepted rescheduling (%) = " << scheduler->GetPer_rescheduling() << " %\n";
+    Output << "Percentage of early patients (%) = " << scheduler->GetPer_Early() << " %\n";
+    Output << "Percentage of late patients (%) = " << scheduler->GetPer_Late() << " %\n";
+    Output << "Average late penalty = " << scheduler->GetAvgPenality() << " timestep(s)\n";
+
+    Output.close();
+
 }

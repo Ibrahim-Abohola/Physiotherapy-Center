@@ -4,15 +4,10 @@
 class E_Device : public Resource
 {
     static int EID;
-    int ID;
 public:
     E_Device();
 
-    int getEID() const;
-
-    bool allocate();
-
-    void release();
+  
 
     void print(ostream& os) const override;
 

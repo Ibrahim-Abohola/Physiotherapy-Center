@@ -6,6 +6,12 @@ Utherapy::Utherapy(int d) : Treatment(d) {}
 
 bool Utherapy::canAssign(Resource* r, int currentTime)
 {
+  
+    if (r) {
+        AssignedResource = r;
+        AssignmentTime = currentTime;
+        return true;
+    }
     return false;
 
 }
