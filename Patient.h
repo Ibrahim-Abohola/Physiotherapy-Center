@@ -18,7 +18,7 @@ class Patient {
 	LinkedQueue<Treatment*> TreatmentList;
 
 	bool isCanceled;
-	bool isRscheduled;
+	int Reschedules;
 
 public:
 	Patient(char type, int pt, int vt);
@@ -41,6 +41,8 @@ public:
 	string GetStatus() const;
 	bool operator<=(Patient p);
 	bool operator>=(Patient p);
+	bool operator<(Patient p);
+	bool operator>(Patient p);
 	int operator!(); // overloading operator to get curr tretment duration for computing TL of wait lists
 	bool operator~(); // overloading operator to check if the curr treatment is the last treatment for the cancel function
 	bool operator&(); // to make sure that the patient is not rescheduled more than once
@@ -49,7 +51,7 @@ public:
 	bool GetisCanceled();
 	bool GetisRscheduled();
 	void SetisCanceled();
-	void SetisRscheduled();
+	void UpdateRschedules();
 
 
 };

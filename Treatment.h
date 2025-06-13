@@ -24,7 +24,7 @@ public:
 
     virtual char GetType() = 0;
 
-    virtual bool canAssign(Resource* r, int currentTime) = 0;
+    void Assign(Resource* r, int currentTime);
 
     virtual void moveToWait(Patient* p, Scheduler* scheduler) = 0;
 

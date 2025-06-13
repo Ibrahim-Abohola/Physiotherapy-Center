@@ -27,7 +27,7 @@ public:
 	bool InsertSorted(T data) {
 		this->count++;
 		if (this->frontPtr) {
-			if (*data <= *(this->frontPtr->getItem())) {
+			if (*data < *(this->frontPtr->getItem())) {
 				Node<T>* newNode = new Node<T>(data);
 				newNode->setNext(this->frontPtr);
 				this->frontPtr = newNode;
@@ -36,7 +36,7 @@ public:
 			Node<T>* ptr = this->frontPtr->getNext();
 			Node<T>* prev = this->frontPtr;
 			while (ptr) {
-				if (*(prev->getItem()) <= *data && *(ptr->getItem()) >= *data) {
+				if (*(prev->getItem()) <= *data && *(ptr->getItem()) > *data) {
 					Node<T>* newNode = new Node<T>(data);
 					newNode->setNext(ptr);
 					prev->setNext(newNode);

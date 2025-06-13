@@ -13,8 +13,6 @@ public:
 
     Utherapy(int d);
 
-    virtual bool canAssign(Resource* r, int currentTime);
-
     virtual void moveToWait(Patient* p, Scheduler* scheduler);
 
 	virtual char GetType();

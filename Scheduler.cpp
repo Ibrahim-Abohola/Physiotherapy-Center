@@ -6,7 +6,7 @@
 
 Scheduler::Scheduler() :
 	TWT(0), Timestep(0), Total_NPatients(0), Total_RPatients(0), AC_Cancellations(0), AC_Rescheduling(0),
-	TTT_N(0), TTT_R(0), TWT_N(0), TWT_R(0), Late_Patients(0), Early_Patients(0), TTT(0), Total_Penality(0), Penality_Patients(0)
+	TTT_N(0), TTT_R(0), TWT_N(0), TWT_R(0), Late_Patients(0), Early_Patients(0), TTT(0), Total_Penality(0)
 {
 }
 
@@ -68,7 +68,9 @@ double Scheduler::GetAvgWT_N() const {
 }
 
 double Scheduler::GetAvgPenality() const {
-	return (double)Total_Penality / Penality_Patients;
+	if (Late_Patients == 0)
+		return 0;
+	return (double)Total_Penality / Late_Patients;
 }
 
 double Scheduler::GetPer_cancellation() const {
@@ -159,9 +161,9 @@ void Scheduler::AddToFinishLIst(Patient*& p) {
 	TWT += p->GetWT();
 	TTT += p->GetTT();
 
-	if(p->GetPT() < p->GetVT())
+	if (p->GetPT() < p->GetVT())
 		Late_Patients++;
-	else
+	else if (p->GetPT() > p->GetVT())
 		Early_Patients++;
 	if (p->GetType() == 'R') {
 		Total_NPatients++;
@@ -174,10 +176,11 @@ void Scheduler::AddToFinishLIst(Patient*& p) {
 		TWT_N += p->GetWT();
 		TTT_N += p->GetTT();
 	}
-	if(p->GetPenality() > 0){
-	Penality_Patients++;
-	Total_Penality += p->GetPenality();
+	if (p->GetPenality() > 0) {
+		Total_Penality += p->GetPenality();
 	}
+	if (p->GetisRscheduled())
+		AC_Rescheduling++;
 	FinishList.push(p);
 }
 
@@ -250,8 +253,7 @@ void Scheduler::reschedule()
 	Patient* P;
 	if (EarlyList.Reschedule(P))
 	{
-		P->SetisRscheduled();
-		AC_Rescheduling++;
+		P->UpdateRschedules();
 		int newPT = rand() % (P->GetPT() / 2 + 1) + P->GetPT() + 1;
 		P->ModifyPT(newPT);
 		AddToEarly(P);
@@ -266,7 +268,7 @@ void Scheduler::FromAllto()
 	{
 		
 		All_Patients.dequeue(P);
-		if (P->GetVT() < P->GetPT())
+		if (P->GetVT() < P->	GetPT())
 			AddToEarly(P);
 		else if (P->GetVT() > P->GetPT())
 			AddToLate(P);
@@ -393,9 +395,9 @@ void Scheduler::AssignE()
 		Patient* p;
 		E_Waiting.dequeue(p);
 		AvailE_Devices.dequeue(r);
-		if (p->GetCurrentTreatment()->canAssign(r, Timestep)){
-			AddToIn_Treatment(p);
-		 }	
+		p->GetCurrentTreatment()->Assign(r, Timestep);
+		AddToIn_Treatment(p);
+		 
 	}
 }
 void Scheduler::AssignU()
@@ -406,9 +408,9 @@ void Scheduler::AssignU()
 		Patient* p;
 		U_Waiting.dequeue(p);
 		AvailU_Devices.dequeue(r);
-		if (p->GetCurrentTreatment()->canAssign(r, Timestep)) {
-			AddToIn_Treatment(p);
-		}
+		p->GetCurrentTreatment()->Assign(r, Timestep); 
+		AddToIn_Treatment(p);
+	
 	}
 }
 
@@ -423,13 +425,11 @@ void Scheduler::AssignX()
 		Patient* p;
 		X_Waiting.dequeue(p);
 		AvailX_Rooms.peek(r);
-		if (p->GetCurrentTreatment()->canAssign(r, Timestep)) {
-			AddToIn_Treatment(p);
-
-			if (r->IsFull())
-				AvailX_Rooms.dequeue(r);
-		}
-
+		p->GetCurrentTreatment()->Assign(r, Timestep);
+		AddToIn_Treatment(p);
+		r->allocate();
+		if (r->IsFull())
+			AvailX_Rooms.dequeue(r);
 	}
 }
 
@@ -442,6 +442,7 @@ void Scheduler::simulate(){
 	do {
 		this->FromAllto();
 		this->FromEarlyLateto();
+		this->FromInTreatTo();
 		AssignE();
 		AssignU();
 		AssignX();

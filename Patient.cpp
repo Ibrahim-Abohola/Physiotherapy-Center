@@ -11,7 +11,7 @@ Patient::Patient(char type, int pt, int vt) :
 	FT = 0;
 	TT = 0;
 	isCanceled = false;
-	isRscheduled = false;
+	Reschedules = 0;
 
 	UpdateStatus("IDLE");
 	if (PT < VT) {
@@ -112,6 +112,12 @@ bool Patient::operator>=(Patient  p) {
 	return (PT + Penality >= p.PT + p.Penality);
 }
 
+bool Patient::operator<(Patient p) {
+	return (PT + Penality < p.PT + p.Penality);
+}
+bool Patient::operator>(Patient p) {
+	return (PT + Penality > p.PT + p.Penality);
+}
 
 int Patient::operator!() {
 
@@ -121,7 +127,7 @@ int Patient::operator!() {
 }
 
 bool Patient::operator&() {
-	return isRscheduled;
+	return (Reschedules >= 3);
 }
 
 bool Patient::operator~()
@@ -147,13 +153,13 @@ bool Patient::GetisCanceled()
 }
 bool Patient::GetisRscheduled()
 {
-	return isRscheduled;
+	return (Reschedules > 0);
 }
 void Patient::SetisCanceled()
 {
 	isCanceled = true;
 }
-void Patient::SetisRscheduled()
+void Patient::UpdateRschedules()
 {
-	isRscheduled = true;
+	Reschedules++;
 }

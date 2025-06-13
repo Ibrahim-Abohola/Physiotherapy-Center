@@ -37,7 +37,6 @@ class Scheduler {
 	int Late_Patients; // number of late patients
 
 	int Total_Penality; // average number of timesteps of the late penality applied for the late patient
-	int Penality_Patients;// number of Penalitedy patients
 	int pCancel; //probability of cancellation
 	int pResch; // probability of rescheduling
 
@@ -56,7 +55,7 @@ public:
 	void AddToFinishLIst(Patient*& p);
 	void FromAllto();
 	void FromEarlyLateto();
-	void HandleRPatient(Patient *);
+	void HandleRPatient(Patient*);
 	void AssignE(); //Mego added
 	void AssignU(); //Mego added
 	void AssignX(); //Mego added
@@ -94,7 +93,7 @@ public:
 	EU_Queue<Patient*>& Get_E_Waiting();		  //ebra added
 	priQueue<Patient*>& Get_In_Treatment();		  //ebra added
 	ArrayStack<Patient*>& Get_Finish_List();	  //ebra added
-     
+
 	LinkedQueue<Resource*>& Get_AvailE_Devices(); //ebra added
 	LinkedQueue<Resource*>& Get_AvailU_Devices(); //ebra added
 	LinkedQueue<Resource*>& Get_AvailX_Rooms();	  //ebra added

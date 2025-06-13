@@ -38,3 +38,9 @@ void Treatment::setResource(Resource* r) {
 Resource * Treatment::GetResource() {
 	return AssignedResource;
 }
+
+void Treatment::Assign(Resource* r, int currentTime)
+{
+	AssignedResource = r;
+	AssignmentTime = currentTime;
+}
