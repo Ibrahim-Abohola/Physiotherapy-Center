@@ -39,12 +39,12 @@ The system generates simulation samples demonstrating all patients statistics an
 ### Sample Simulation Results
 
 **Patient Scheduling Data Overview:**
-![Patient Data Table](https://github.com/Ibrahim-Abohola/Physiotherapy-Center-Project/blob/main/patient_data_sample.png)
+![Patient Data Table](https://i.imgur.com/uqmavML.png)
 
 *This sample shows the structured organization of patient data including Patient ID (PID), patient type (N/R), arrival times, service durations, and scheduling status using array and linked list implementations.*
 
 **Simulation Statistics Summary:**
-![Simulation Summary](https://github.com/Ibrahim-Abohola/Physiotherapy-Center-Project/blob/main/simulation_summary.png)
+![Simulation Summary](https://i.imgur.com/XwACvEn.png)
 
 *Comprehensive statistical output demonstrating how data structures efficiently process and analyze patient flow, scheduling patterns, and operational metrics.*
 
